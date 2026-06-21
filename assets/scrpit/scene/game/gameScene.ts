@@ -720,20 +720,26 @@ export class gameScene extends Component {
         if (gameData.putongLevel == 1 && gameData.moshi == gameMoshi.putong) {
             return
         }
-        // 如果之前设置过定时器，先清除它
-        if (this.checkBallTimeoutId !== null) {
-            clearTimeout(this.checkBallTimeoutId);
-            this.checkBallTimeoutId = null;
-        }
-        // 检查剩余球的个数是否小于4
-        if (this.jianchaShengyu() < 4 && this.jianchaShengyu() > 0) {
-            // 设置一个3秒的定时器
-            this.checkBallTimeoutId = setTimeout(() => {
-                // 清除所有剩下的球
-                this.clearAllRemainingBalls();
+        // 延迟到下一帧再判定：合并掉的插槽球执行的是 node.destroy()，要到帧末才真正从
+        // children 中移除。若此刻立即统计，会把正在销毁的球也算进剩余数，导致读数偏高、
+        // 在最后一次合并清到 ≤3 个球时漏判卡死、不触发兜底清场。
+        this.scheduleOnce(() => {
+            // 如果之前设置过定时器，先清除它
+            if (this.checkBallTimeoutId !== null) {
+                clearTimeout(this.checkBallTimeoutId);
                 this.checkBallTimeoutId = null;
-            }, 3000) as unknown as number;
-        }
+            }
+            // 剩余球 ≤3（不足以再凑成一个三连消除组）时，3 秒后兜底清场，避免卡死
+            const shengyu: number = this.jianchaShengyu()
+            if (shengyu < 4 && shengyu > 0) {
+                // 设置一个3秒的定时器
+                this.checkBallTimeoutId = setTimeout(() => {
+                    // 清除所有剩下的球
+                    this.clearAllRemainingBalls();
+                    this.checkBallTimeoutId = null;
+                }, 3000) as unknown as number;
+            }
+        })
     }
     /**
      * 清除所有剩下的球
@@ -779,8 +785,13 @@ export class gameScene extends Component {
      * 检查还剩余多少个球
      */
     jianchaShengyu() {
-        // 获取当前槽位ID数组的长度
-        const ball = this.allBallData.length + this.ballMain.children.length
+        // 统计所有尚未被真正消除的球：
+        // allBallData(后备队列) + youxianCreateBalls(待生成缓冲) + ballMain(场上) + chacaoBallMain(插槽内)
+        // 四个集合之间会互相搬运，必须全部计入，否则显示值会随搬运来回跳动
+        const ball = this.allBallData.length
+            + this.youxianCreateBalls.length
+            + this.ballMain.children.length
+            + this.chacaoBallMain.children.length
         this.shengyu.string = `${ball}`
         return ball
     }
