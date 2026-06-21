@@ -1,0 +1,42 @@
+{
+  "__version__": "1.0.6",
+  "general": {
+    "designResolution": {
+      "width": 720,
+      "height": 1280
+    }
+  },
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "STATIC"
+      },
+      {
+        "index": 2,
+        "name": "EGG1"
+      },
+      {
+        "index": 3,
+        "name": "EGG2"
+      },
+      {
+        "index": 4,
+        "name": "EGGBOX1"
+      },
+      {
+        "index": 5,
+        "name": "EGGBOX2"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 3,
+      "1": 1,
+      "2": 16,
+      "3": 32,
+      "4": 4,
+      "5": 8
+    }
+  },
+  "custom_joint_texture_layouts": []
+}

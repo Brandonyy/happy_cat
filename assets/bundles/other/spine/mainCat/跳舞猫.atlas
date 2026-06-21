@@ -1,0 +1,460 @@
+
+跳舞猫.png
+size: 2029,1816
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+图层 1
+  rotate: true
+  xy: 1040, 1062
+  size: 259, 341
+  orig: 261, 343
+  offset: 1, 1
+  index: -1
+图层 101
+  rotate: true
+  xy: 367, 803
+  size: 259, 363
+  orig: 261, 365
+  offset: 1, 1
+  index: -1
+图层 105
+  rotate: true
+  xy: 689, 1064
+  size: 258, 349
+  orig: 260, 351
+  offset: 1, 1
+  index: -1
+图层 107
+  rotate: true
+  xy: 355, 277
+  size: 261, 355
+  orig: 263, 357
+  offset: 1, 1
+  index: -1
+图层 117
+  rotate: true
+  xy: 349, 1071
+  size: 258, 338
+  orig: 260, 340
+  offset: 1, 1
+  index: -1
+图层 119
+  rotate: false
+  xy: 1776, 1481
+  size: 251, 333
+  orig: 253, 335
+  offset: 1, 1
+  index: -1
+图层 121
+  rotate: true
+  xy: 1445, 1573
+  size: 241, 329
+  orig: 243, 331
+  offset: 1, 1
+  index: -1
+图层 123
+  rotate: true
+  xy: 2, 1592
+  size: 222, 351
+  orig: 224, 353
+  offset: 1, 1
+  index: -1
+图层 125
+  rotate: true
+  xy: 338, 1331
+  size: 247, 357
+  orig: 249, 359
+  offset: 1, 1
+  index: -1
+图层 127
+  rotate: true
+  xy: 2, 1076
+  size: 253, 345
+  orig: 255, 347
+  offset: 1, 1
+  index: -1
+图层 13
+  rotate: true
+  xy: 732, 800
+  size: 260, 363
+  orig: 262, 365
+  offset: 1, 1
+  index: -1
+图层 37
+  rotate: true
+  xy: 732, 800
+  size: 260, 363
+  orig: 262, 365
+  offset: 1, 1
+  index: -1
+图层 15
+  rotate: true
+  xy: 697, 1324
+  size: 253, 342
+  orig: 255, 344
+  offset: 1, 1
+  index: -1
+图层 39
+  rotate: true
+  xy: 697, 1324
+  size: 253, 342
+  orig: 255, 344
+  offset: 1, 1
+  index: -1
+图层 17
+  rotate: true
+  xy: 2, 547
+  size: 261, 352
+  orig: 263, 354
+  offset: 1, 1
+  index: -1
+图层 41
+  rotate: true
+  xy: 2, 547
+  size: 261, 352
+  orig: 263, 354
+  offset: 1, 1
+  index: -1
+图层 19
+  rotate: true
+  xy: 356, 540
+  size: 261, 355
+  orig: 263, 357
+  offset: 1, 1
+  index: -1
+图层 25
+  rotate: true
+  xy: 1077, 2
+  size: 263, 360
+  orig: 265, 362
+  offset: 1, 1
+  index: -1
+图层 3
+  rotate: true
+  xy: 2, 282
+  size: 263, 351
+  orig: 265, 353
+  offset: 1, 1
+  index: -1
+图层 27
+  rotate: true
+  xy: 2, 282
+  size: 263, 351
+  orig: 265, 353
+  offset: 1, 1
+  index: -1
+图层 51
+  rotate: true
+  xy: 2, 282
+  size: 263, 351
+  orig: 265, 353
+  offset: 1, 1
+  index: -1
+图层 31
+  rotate: true
+  xy: 1439, 2
+  size: 263, 359
+  orig: 265, 361
+  offset: 1, 1
+  index: -1
+图层 43
+  rotate: true
+  xy: 713, 537
+  size: 261, 355
+  orig: 263, 357
+  offset: 1, 1
+  index: -1
+图层 5
+  rotate: true
+  xy: 1451, 794
+  size: 261, 357
+  orig: 263, 359
+  offset: 1, 1
+  index: -1
+图层 29
+  rotate: true
+  xy: 1451, 794
+  size: 261, 357
+  orig: 263, 359
+  offset: 1, 1
+  index: -1
+图层 53
+  rotate: true
+  xy: 1383, 1057
+  size: 259, 341
+  orig: 261, 343
+  offset: 1, 1
+  index: -1
+图层 55
+  rotate: true
+  xy: 1041, 1323
+  size: 253, 345
+  orig: 255, 347
+  offset: 1, 1
+  index: -1
+图层 57
+  rotate: true
+  xy: 1067, 1578
+  size: 236, 376
+  orig: 238, 378
+  offset: 1, 1
+  index: -1
+图层 59
+  rotate: true
+  xy: 355, 1580
+  size: 234, 365
+  orig: 236, 367
+  offset: 1, 1
+  index: -1
+图层 61
+  rotate: true
+  xy: 722, 1579
+  size: 235, 343
+  orig: 237, 345
+  offset: 1, 1
+  index: -1
+图层 63
+  rotate: true
+  xy: 2, 1338
+  size: 252, 334
+  orig: 254, 336
+  offset: 1, 1
+  index: -1
+图层 65
+  rotate: false
+  xy: 1732, 1143
+  size: 256, 336
+  orig: 258, 338
+  offset: 1, 1
+  index: -1
+图层 67
+  rotate: true
+  xy: 712, 272
+  size: 263, 351
+  orig: 265, 353
+  offset: 1, 1
+  index: -1
+图层 69
+  rotate: true
+  xy: 1070, 532
+  size: 261, 357
+  orig: 263, 359
+  offset: 1, 1
+  index: -1
+图层 7
+  rotate: true
+  xy: 716, 4
+  size: 263, 359
+  orig: 265, 361
+  offset: 1, 1
+  index: -1
+图层 71
+  rotate: true
+  xy: 1424, 267
+  size: 262, 359
+  orig: 264, 361
+  offset: 1, 1
+  index: -1
+图层 77
+  rotate: true
+  xy: 2, 810
+  size: 259, 363
+  orig: 261, 365
+  offset: 1, 1
+  index: -1
+图层 79
+  rotate: true
+  xy: 1388, 1318
+  size: 253, 342
+  orig: 255, 344
+  offset: 1, 1
+  index: -1
+图层 103
+  rotate: true
+  xy: 1388, 1318
+  size: 253, 342
+  orig: 255, 344
+  offset: 1, 1
+  index: -1
+图层 81
+  rotate: true
+  xy: 1097, 795
+  size: 260, 352
+  orig: 262, 354
+  offset: 1, 1
+  index: -1
+图层 83
+  rotate: true
+  xy: 1429, 531
+  size: 261, 355
+  orig: 263, 357
+  offset: 1, 1
+  index: -1
+图层 91
+  rotate: true
+  xy: 2, 17
+  size: 263, 351
+  orig: 265, 353
+  offset: 1, 1
+  index: -1
+图层 115
+  rotate: true
+  xy: 2, 17
+  size: 263, 351
+  orig: 265, 353
+  offset: 1, 1
+  index: -1
+图层 93
+  rotate: true
+  xy: 1065, 269
+  size: 261, 357
+  orig: 263, 359
+  offset: 1, 1
+  index: -1
+图层 95
+  rotate: true
+  xy: 355, 8
+  size: 262, 359
+  orig: 264, 361
+  offset: 1, 1
+  index: -1
+
+跳舞猫2.png
+size: 1604,1098
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+图层 11
+  rotate: false
+  xy: 536, 366
+  size: 266, 363
+  orig: 268, 365
+  offset: 1, 1
+  index: -1
+图层 111
+  rotate: false
+  xy: 805, 733
+  size: 265, 363
+  orig: 267, 365
+  offset: 1, 1
+  index: -1
+图层 113
+  rotate: false
+  xy: 1339, 736
+  size: 263, 360
+  orig: 265, 362
+  offset: 1, 1
+  index: -1
+图层 21
+  rotate: false
+  xy: 2, 2
+  size: 264, 360
+  orig: 266, 362
+  offset: 1, 1
+  index: -1
+图层 23
+  rotate: false
+  xy: 2, 731
+  size: 266, 365
+  orig: 268, 367
+  offset: 1, 1
+  index: -1
+图层 33
+  rotate: false
+  xy: 1067, 4
+  size: 265, 362
+  orig: 267, 364
+  offset: 1, 1
+  index: -1
+图层 35
+  rotate: false
+  xy: 537, 733
+  size: 266, 363
+  orig: 268, 365
+  offset: 1, 1
+  index: -1
+图层 45
+  rotate: false
+  xy: 268, 2
+  size: 264, 360
+  orig: 266, 362
+  offset: 1, 1
+  index: -1
+图层 47
+  rotate: false
+  xy: 2, 364
+  size: 266, 365
+  orig: 268, 367
+  offset: 1, 1
+  index: -1
+图层 49
+  rotate: false
+  xy: 1334, 7
+  size: 263, 360
+  orig: 265, 362
+  offset: 1, 1
+  index: -1
+图层 73
+  rotate: false
+  xy: 1071, 369
+  size: 265, 362
+  orig: 267, 364
+  offset: 1, 1
+  index: -1
+图层 75
+  rotate: false
+  xy: 804, 368
+  size: 265, 363
+  orig: 267, 365
+  offset: 1, 1
+  index: -1
+图层 85
+  rotate: false
+  xy: 534, 3
+  size: 264, 360
+  orig: 266, 362
+  offset: 1, 1
+  index: -1
+图层 109
+  rotate: false
+  xy: 534, 3
+  size: 264, 360
+  orig: 266, 362
+  offset: 1, 1
+  index: -1
+图层 87
+  rotate: false
+  xy: 270, 731
+  size: 265, 365
+  orig: 267, 367
+  offset: 1, 1
+  index: -1
+图层 89
+  rotate: false
+  xy: 1338, 372
+  size: 263, 360
+  orig: 265, 362
+  offset: 1, 1
+  index: -1
+图层 9
+  rotate: false
+  xy: 800, 2
+  size: 265, 362
+  orig: 267, 364
+  offset: 1, 1
+  index: -1
+图层 97
+  rotate: false
+  xy: 1072, 734
+  size: 265, 362
+  orig: 267, 364
+  offset: 1, 1
+  index: -1
+图层 99
+  rotate: false
+  xy: 270, 365
+  size: 264, 364
+  orig: 266, 366
+  offset: 1, 1
+  index: -1

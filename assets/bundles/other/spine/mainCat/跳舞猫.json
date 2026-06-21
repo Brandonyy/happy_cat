@@ -1,0 +1,668 @@
+{
+"skeleton": {
+	"hash": "p96BtVM4PrUZ2GYoZX0hngPge48",
+	"spine": "3.8.75",
+	"x": -159,
+	"y": -2,
+	"width": 261,
+	"height": 343,
+	"images": "./images/",
+	"audio": "D:/桌面/小游戏UI/抓猫猫/动画素材/跳舞猫"
+},
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "图层 1", "bone": "root", "attachment": "图层 1" },
+	{ "name": "图层 3", "bone": "root" },
+	{ "name": "图层 5", "bone": "root" },
+	{ "name": "图层 7", "bone": "root" },
+	{ "name": "图层 9", "bone": "root" },
+	{ "name": "图层 11", "bone": "root" },
+	{ "name": "图层 13", "bone": "root" },
+	{ "name": "图层 15", "bone": "root" },
+	{ "name": "图层 17", "bone": "root" },
+	{ "name": "图层 19", "bone": "root" },
+	{ "name": "图层 21", "bone": "root" },
+	{ "name": "图层 23", "bone": "root" },
+	{ "name": "图层 25", "bone": "root" },
+	{ "name": "图层 27", "bone": "root" },
+	{ "name": "图层 29", "bone": "root" },
+	{ "name": "图层 31", "bone": "root" },
+	{ "name": "图层 33", "bone": "root" },
+	{ "name": "图层 35", "bone": "root" },
+	{ "name": "图层 37", "bone": "root" },
+	{ "name": "图层 39", "bone": "root" },
+	{ "name": "图层 41", "bone": "root" },
+	{ "name": "图层 43", "bone": "root" },
+	{ "name": "图层 45", "bone": "root" },
+	{ "name": "图层 47", "bone": "root" },
+	{ "name": "图层 49", "bone": "root" },
+	{ "name": "图层 51", "bone": "root" },
+	{ "name": "图层 53", "bone": "root" },
+	{ "name": "图层 55", "bone": "root" },
+	{ "name": "图层 57", "bone": "root" },
+	{ "name": "图层 59", "bone": "root" },
+	{ "name": "图层 61", "bone": "root" },
+	{ "name": "图层 63", "bone": "root" },
+	{ "name": "图层 65", "bone": "root" },
+	{ "name": "图层 67", "bone": "root" },
+	{ "name": "图层 69", "bone": "root" },
+	{ "name": "图层 71", "bone": "root" },
+	{ "name": "图层 73", "bone": "root" },
+	{ "name": "图层 75", "bone": "root" },
+	{ "name": "图层 77", "bone": "root" },
+	{ "name": "图层 79", "bone": "root" },
+	{ "name": "图层 81", "bone": "root" },
+	{ "name": "图层 83", "bone": "root" },
+	{ "name": "图层 85", "bone": "root" },
+	{ "name": "图层 87", "bone": "root" },
+	{ "name": "图层 89", "bone": "root" },
+	{ "name": "图层 91", "bone": "root" },
+	{ "name": "图层 93", "bone": "root" },
+	{ "name": "图层 95", "bone": "root" },
+	{ "name": "图层 97", "bone": "root" },
+	{ "name": "图层 99", "bone": "root" },
+	{ "name": "图层 101", "bone": "root" },
+	{ "name": "图层 103", "bone": "root" },
+	{ "name": "图层 105", "bone": "root" },
+	{ "name": "图层 107", "bone": "root" },
+	{ "name": "图层 109", "bone": "root" },
+	{ "name": "图层 111", "bone": "root" },
+	{ "name": "图层 113", "bone": "root" },
+	{ "name": "图层 115", "bone": "root" },
+	{ "name": "图层 117", "bone": "root" },
+	{ "name": "图层 119", "bone": "root" },
+	{ "name": "图层 121", "bone": "root" },
+	{ "name": "图层 123", "bone": "root" },
+	{ "name": "图层 125", "bone": "root" },
+	{ "name": "图层 127", "bone": "root" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"图层 37": {
+				"图层 37": { "x": -29, "y": 180.5, "width": 262, "height": 365 }
+			},
+			"图层 107": {
+				"图层 107": { "x": 7.5, "y": 176.5, "width": 263, "height": 357 }
+			},
+			"图层 39": {
+				"图层 39": { "x": -25.5, "y": 170, "width": 255, "height": 344 }
+			},
+			"图层 121": {
+				"图层 121": { "x": -2.5, "y": 163.5, "width": 243, "height": 331 }
+			},
+			"图层 81": {
+				"图层 81": { "x": 7, "y": 175, "width": 262, "height": 354 }
+			},
+			"图层 123": {
+				"图层 123": { "y": 174.5, "width": 224, "height": 353 }
+			},
+			"图层 83": {
+				"图层 83": { "x": 7.5, "y": 176.5, "width": 263, "height": 357 }
+			},
+			"图层 125": {
+				"图层 125": { "x": -2.5, "y": 182.5, "width": 249, "height": 359 }
+			},
+			"图层 41": {
+				"图层 41": { "x": -29.5, "y": 175, "width": 263, "height": 354 }
+			},
+			"图层 127": {
+				"图层 127": { "x": -9.5, "y": 171.5, "width": 255, "height": 347 }
+			},
+			"图层 87": {
+				"图层 87": { "x": 9.5, "y": 181.5, "width": 267, "height": 367 }
+			},
+			"图层 99": {
+				"图层 99": { "x": 9, "y": 181, "width": 266, "height": 366 }
+			},
+			"图层 45": {
+				"图层 45": { "x": -31, "y": 179, "width": 266, "height": 362 }
+			},
+			"图层 31": {
+				"图层 31": { "x": -30.5, "y": 178.5, "width": 265, "height": 361 }
+			},
+			"图层 119": {
+				"图层 119": { "x": 2.5, "y": 165.5, "width": 253, "height": 335 }
+			},
+			"图层 49": {
+				"图层 49": { "x": -30.5, "y": 179, "width": 265, "height": 362 }
+			},
+			"图层 23": {
+				"图层 23": { "x": -32, "y": 181.5, "width": 268, "height": 367 }
+			},
+			"图层 25": {
+				"图层 25": { "x": -30.5, "y": 179, "width": 265, "height": 362 }
+			},
+			"图层 7": {
+				"图层 7": { "x": -30.5, "y": 178.5, "width": 265, "height": 361 }
+			},
+			"图层 91": {
+				"图层 91": { "x": 8.5, "y": 174.5, "width": 265, "height": 353 }
+			},
+			"图层 93": {
+				"图层 93": { "x": 7.5, "y": 177.5, "width": 263, "height": 359 }
+			},
+			"图层 51": {
+				"图层 51": { "x": -30.5, "y": 174.5, "width": 265, "height": 353 }
+			},
+			"图层 97": {
+				"图层 97": { "x": 9.5, "y": 180, "width": 267, "height": 364 }
+			},
+			"图层 5": {
+				"图层 5": { "x": -29.5, "y": 177.5, "width": 263, "height": 359 }
+			},
+			"图层 11": {
+				"图层 11": { "x": -32, "y": 180.5, "width": 268, "height": 365 }
+			},
+			"图层 57": {
+				"图层 57": { "x": 1, "y": 190, "width": 238, "height": 378 }
+			},
+			"图层 59": {
+				"图层 59": { "x": 7, "y": 186.5, "width": 236, "height": 367 }
+			},
+			"图层 3": {
+				"图层 3": { "x": -30.5, "y": 174.5, "width": 265, "height": 353 }
+			},
+			"图层 17": {
+				"图层 17": { "x": -29.5, "y": 175, "width": 263, "height": 354 }
+			},
+			"图层 19": {
+				"图层 19": { "x": -29.5, "y": 176.5, "width": 263, "height": 357 }
+			},
+			"图层 47": {
+				"图层 47": { "x": -32, "y": 181.5, "width": 268, "height": 367 }
+			},
+			"图层 89": {
+				"图层 89": { "x": 8.5, "y": 179, "width": 265, "height": 362 }
+			},
+			"图层 53": {
+				"图层 53": { "x": -28.5, "y": 169.5, "width": 261, "height": 343 }
+			},
+			"图层 43": {
+				"图层 43": { "x": -29.5, "y": 176.5, "width": 263, "height": 357 }
+			},
+			"图层 101": {
+				"图层 101": { "x": 6.5, "y": 180.5, "width": 261, "height": 365 }
+			},
+			"图层 61": {
+				"图层 61": { "x": -5.5, "y": 170.5, "width": 237, "height": 345 }
+			},
+			"图层 103": {
+				"图层 103": { "x": 3.5, "y": 170, "width": 255, "height": 344 }
+			},
+			"图层 65": {
+				"图层 65": { "x": 5, "y": 167, "width": 258, "height": 338 }
+			},
+			"图层 105": {
+				"图层 105": { "x": 6, "y": 173.5, "width": 260, "height": 351 }
+			},
+			"图层 21": {
+				"图层 21": { "x": -31, "y": 179, "width": 266, "height": 362 }
+			},
+			"图层 95": {
+				"图层 95": { "x": 8, "y": 178.5, "width": 264, "height": 361 }
+			},
+			"图层 67": {
+				"图层 67": { "x": 8.5, "y": 174.5, "width": 265, "height": 353 }
+			},
+			"图层 85": {
+				"图层 85": { "x": 9, "y": 179, "width": 266, "height": 362 }
+			},
+			"图层 15": {
+				"图层 15": { "x": -25.5, "y": 170, "width": 255, "height": 344 }
+			},
+			"图层 27": {
+				"图层 27": { "x": -30.5, "y": 174.5, "width": 265, "height": 353 }
+			},
+			"图层 69": {
+				"图层 69": { "x": 7.5, "y": 177.5, "width": 263, "height": 359 }
+			},
+			"图层 29": {
+				"图层 29": { "x": -29.5, "y": 177.5, "width": 263, "height": 359 }
+			},
+			"图层 33": {
+				"图层 33": { "x": -31.5, "y": 180, "width": 267, "height": 364 }
+			},
+			"图层 35": {
+				"图层 35": { "x": -32, "y": 180.5, "width": 268, "height": 365 }
+			},
+			"图层 9": {
+				"图层 9": { "x": -31.5, "y": 180, "width": 267, "height": 364 }
+			},
+			"图层 117": {
+				"图层 117": { "x": 6, "y": 168, "width": 260, "height": 340 }
+			},
+			"图层 63": {
+				"图层 63": { "x": 3, "y": 166, "width": 254, "height": 336 }
+			},
+			"图层 1": {
+				"图层 1": { "x": -28.5, "y": 169.5, "width": 261, "height": 343 }
+			},
+			"图层 55": {
+				"图层 55": { "x": -9.5, "y": 171.5, "width": 255, "height": 347 }
+			},
+			"图层 111": {
+				"图层 111": { "x": 9.5, "y": 180.5, "width": 267, "height": 365 }
+			},
+			"图层 71": {
+				"图层 71": { "x": 8, "y": 178.5, "width": 264, "height": 361 }
+			},
+			"图层 113": {
+				"图层 113": { "x": 8.5, "y": 179, "width": 265, "height": 362 }
+			},
+			"图层 73": {
+				"图层 73": { "x": 9.5, "y": 180, "width": 267, "height": 364 }
+			},
+			"图层 115": {
+				"图层 115": { "x": 8.5, "y": 174.5, "width": 265, "height": 353 }
+			},
+			"图层 75": {
+				"图层 75": { "x": 9.5, "y": 180.5, "width": 267, "height": 365 }
+			},
+			"图层 13": {
+				"图层 13": { "x": -29, "y": 180.5, "width": 262, "height": 365 }
+			},
+			"图层 77": {
+				"图层 77": { "x": 6.5, "y": 180.5, "width": 261, "height": 365 }
+			},
+			"图层 109": {
+				"图层 109": { "x": 9, "y": 179, "width": 266, "height": 362 }
+			},
+			"图层 79": {
+				"图层 79": { "x": 3.5, "y": 170, "width": 255, "height": 344 }
+			}
+		}
+	}
+],
+"animations": {
+	"tiaowu": {
+		"slots": {
+			"图层 29": {
+				"attachment": [
+					{ "time": 0.7667, "name": "图层 29" },
+					{ "time": 0.8333, "name": null }
+				]
+			},
+			"图层 123": {
+				"attachment": [
+					{ "time": 3.4333, "name": "图层 123" },
+					{ "time": 3.5, "name": null }
+				]
+			},
+			"图层 67": {
+				"attachment": [
+					{ "time": 1.8667, "name": "图层 67" },
+					{ "time": 1.9333, "name": null }
+				]
+			},
+			"图层 125": {
+				"attachment": [
+					{ "time": 3.5, "name": "图层 125" },
+					{ "time": 3.5333, "name": null }
+				]
+			},
+			"图层 73": {
+				"attachment": [
+					{ "time": 2.0333, "name": "图层 73" },
+					{ "time": 2.1, "name": null }
+				]
+			},
+			"图层 3": {
+				"attachment": [
+					{ "time": 0.0667, "name": "图层 3" },
+					{ "time": 0.1, "name": null }
+				]
+			},
+			"图层 111": {
+				"attachment": [
+					{ "time": 3.1, "name": "图层 111" },
+					{ "time": 3.1667, "name": null }
+				]
+			},
+			"图层 25": {
+				"attachment": [
+					{ "time": 0.6667, "name": "图层 25" },
+					{ "time": 0.7333, "name": null }
+				]
+			},
+			"图层 45": {
+				"attachment": [
+					{ "time": 1.2667, "name": "图层 45" },
+					{ "time": 1.3, "name": null }
+				]
+			},
+			"图层 101": {
+				"attachment": [
+					{ "time": 2.8333, "name": "图层 101" },
+					{ "time": 2.8667, "name": null }
+				]
+			},
+			"图层 87": {
+				"attachment": [
+					{ "time": 2.4333, "name": "图层 87" },
+					{ "time": 2.4667, "name": null }
+				]
+			},
+			"图层 117": {
+				"attachment": [
+					{ "time": 3.2667, "name": "图层 117" },
+					{ "time": 3.3333, "name": null }
+				]
+			},
+			"图层 51": {
+				"attachment": [
+					{ "time": 1.4333, "name": "图层 51" },
+					{ "time": 1.4667, "name": null }
+				]
+			},
+			"图层 33": {
+				"attachment": [
+					{ "time": 0.9, "name": "图层 33" },
+					{ "time": 0.9333, "name": null }
+				]
+			},
+			"图层 109": {
+				"attachment": [
+					{ "time": 3.0333, "name": "图层 109" },
+					{ "time": 3.1, "name": null }
+				]
+			},
+			"图层 17": {
+				"attachment": [
+					{ "time": 0.4333, "name": "图层 17" },
+					{ "time": 0.5, "name": null }
+				]
+			},
+			"图层 107": {
+				"attachment": [
+					{ "time": 3, "name": "图层 107" },
+					{ "time": 3.0333, "name": null }
+				]
+			},
+			"图层 49": {
+				"attachment": [
+					{ "time": 1.3667, "name": "图层 49" },
+					{ "time": 1.4333, "name": null }
+				]
+			},
+			"图层 5": {
+				"attachment": [
+					{ "time": 0.1, "name": "图层 5" },
+					{ "time": 0.1667, "name": null }
+				]
+			},
+			"图层 31": {
+				"attachment": [
+					{ "time": 0.8333, "name": "图层 31" },
+					{ "time": 0.9, "name": null }
+				]
+			},
+			"图层 43": {
+				"attachment": [
+					{ "time": 1.2, "name": "图层 43" },
+					{ "time": 1.2667, "name": null }
+				]
+			},
+			"图层 115": {
+				"attachment": [
+					{ "time": 3.2, "name": "图层 115" },
+					{ "time": 3.2667, "name": null }
+				]
+			},
+			"图层 85": {
+				"attachment": [
+					{ "time": 2.3667, "name": "图层 85" },
+					{ "time": 2.4333, "name": null }
+				]
+			},
+			"图层 13": {
+				"attachment": [
+					{ "time": 0.3333, "name": "图层 13" },
+					{ "time": 0.4, "name": null }
+				]
+			},
+			"图层 119": {
+				"attachment": [
+					{ "time": 3.3333, "name": "图层 119" },
+					{ "time": 3.3667, "name": null }
+				]
+			},
+			"图层 69": {
+				"attachment": [
+					{ "time": 1.9333, "name": "图层 69" },
+					{ "time": 1.9667, "name": null }
+				]
+			},
+			"图层 121": {
+				"attachment": [
+					{ "time": 3.3667, "name": "图层 121" },
+					{ "time": 3.4333, "name": null }
+				]
+			},
+			"图层 15": {
+				"attachment": [
+					{ "time": 0.4, "name": "图层 15" },
+					{ "time": 0.4333, "name": null }
+				]
+			},
+			"图层 41": {
+				"attachment": [
+					{ "time": 1.1333, "name": "图层 41" },
+					{ "time": 1.2, "name": null }
+				]
+			},
+			"图层 71": {
+				"attachment": [
+					{ "time": 1.9667, "name": "图层 71" },
+					{ "time": 2.0333, "name": null }
+				]
+			},
+			"图层 59": {
+				"attachment": [
+					{ "time": 1.6333, "name": "图层 59" },
+					{ "time": 1.7, "name": null }
+				]
+			},
+			"图层 105": {
+				"attachment": [
+					{ "time": 2.9333, "name": "图层 105" },
+					{ "time": 3, "name": null }
+				]
+			},
+			"图层 89": {
+				"attachment": [
+					{ "time": 2.4667, "name": "图层 89" },
+					{ "time": 2.5333, "name": null }
+				]
+			},
+			"图层 23": {
+				"attachment": [
+					{ "time": 0.6, "name": "图层 23" },
+					{ "time": 0.6667, "name": null }
+				]
+			},
+			"图层 79": {
+				"attachment": [
+					{ "time": 2.2, "name": "图层 79" },
+					{ "time": 2.2667, "name": null }
+				]
+			},
+			"图层 37": {
+				"attachment": [
+					{ "time": 1, "name": "图层 37" },
+					{ "time": 1.1, "name": null }
+				]
+			},
+			"图层 7": {
+				"attachment": [
+					{ "time": 0.1667, "name": "图层 7" },
+					{ "time": 0.2333, "name": null }
+				]
+			},
+			"图层 83": {
+				"attachment": [
+					{ "time": 2.3, "name": "图层 83" },
+					{ "time": 2.3667, "name": null }
+				]
+			},
+			"图层 99": {
+				"attachment": [
+					{ "time": 2.7667, "name": "图层 99" },
+					{ "time": 2.8333, "name": null }
+				]
+			},
+			"图层 127": {
+				"attachment": [
+					{ "time": 3.5333, "name": "图层 127" }
+				]
+			},
+			"图层 11": {
+				"attachment": [
+					{ "time": 0.2667, "name": "图层 11" },
+					{ "time": 0.3333, "name": null }
+				]
+			},
+			"图层 57": {
+				"attachment": [
+					{ "time": 1.6, "name": "图层 57" },
+					{ "time": 1.6333, "name": null }
+				]
+			},
+			"图层 91": {
+				"attachment": [
+					{ "time": 2.5333, "name": "图层 91" },
+					{ "time": 2.6, "name": null }
+				]
+			},
+			"图层 21": {
+				"attachment": [
+					{ "time": 0.5667, "name": "图层 21" },
+					{ "time": 0.6, "name": null }
+				]
+			},
+			"图层 9": {
+				"attachment": [
+					{ "time": 0.2333, "name": "图层 9" },
+					{ "time": 0.2667, "name": null }
+				]
+			},
+			"图层 103": {
+				"attachment": [
+					{ "time": 2.8667, "name": "图层 103" },
+					{ "time": 2.9333, "name": null }
+				]
+			},
+			"图层 39": {
+				"attachment": [
+					{ "time": 1.1, "name": "图层 39" },
+					{ "time": 1.1333, "name": null }
+				]
+			},
+			"图层 95": {
+				"attachment": [
+					{ "time": 2.6667, "name": "图层 95" },
+					{ "time": 2.7, "name": null }
+				]
+			},
+			"图层 35": {
+				"attachment": [
+					{ "time": 0.9333, "name": "图层 35" },
+					{ "time": 1, "name": null }
+				]
+			},
+			"图层 27": {
+				"attachment": [
+					{ "time": 0.7333, "name": "图层 27" },
+					{ "time": 0.7667, "name": null }
+				]
+			},
+			"图层 113": {
+				"attachment": [
+					{ "time": 3.1667, "name": "图层 113" },
+					{ "time": 3.2, "name": null }
+				]
+			},
+			"图层 53": {
+				"attachment": [
+					{ "time": 1.4667, "name": "图层 53" },
+					{ "time": 1.5333, "name": null }
+				]
+			},
+			"图层 97": {
+				"attachment": [
+					{ "time": 2.7, "name": "图层 97" },
+					{ "time": 2.7667, "name": null }
+				]
+			},
+			"图层 93": {
+				"attachment": [
+					{ "time": 2.6, "name": "图层 93" },
+					{ "time": 2.6667, "name": null }
+				]
+			},
+			"图层 63": {
+				"attachment": [
+					{ "time": 1.7667, "name": "图层 63" },
+					{ "time": 1.8, "name": null }
+				]
+			},
+			"图层 61": {
+				"attachment": [
+					{ "time": 1.7, "name": "图层 61" },
+					{ "time": 1.7667, "name": null }
+				]
+			},
+			"图层 19": {
+				"attachment": [
+					{ "time": 0.5, "name": "图层 19" },
+					{ "time": 0.5667, "name": null }
+				]
+			},
+			"图层 1": {
+				"attachment": [
+					{ "time": 0.0667, "name": null }
+				]
+			},
+			"图层 55": {
+				"attachment": [
+					{ "time": 1.5333, "name": "图层 55" },
+					{ "time": 1.6, "name": null }
+				]
+			},
+			"图层 77": {
+				"attachment": [
+					{ "time": 2.1333, "name": "图层 77" },
+					{ "time": 2.2, "name": null }
+				]
+			},
+			"图层 75": {
+				"attachment": [
+					{ "time": 2.1, "name": "图层 75" },
+					{ "time": 2.1333, "name": null }
+				]
+			},
+			"图层 65": {
+				"attachment": [
+					{ "time": 1.8, "name": "图层 65" },
+					{ "time": 1.8667, "name": null }
+				]
+			},
+			"图层 81": {
+				"attachment": [
+					{ "time": 2.2667, "name": "图层 81" },
+					{ "time": 2.3, "name": null }
+				]
+			},
+			"图层 47": {
+				"attachment": [
+					{ "time": 1.3, "name": "图层 47" },
+					{ "time": 1.3667, "name": null }
+				]
+			}
+		}
+	}
+}
+}

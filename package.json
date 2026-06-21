@@ -1,0 +1,11 @@
+{
+  "name": "开心抓猫猫-新",
+  "uuid": "79a14070-73d8-4e6b-a95c-129b9d0172c5",
+  "creator": {
+    "version": "3.8.6"
+  },
+  "dependencies": {
+    "@alipay/faas-web-sdk": "^1.1.25",
+    "wft-sdk-mg": "^0.6.0"
+  }
+}

@@ -1,0 +1,41 @@
+
+奔跑.png
+size: 453,292
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shenti
+  rotate: false
+  xy: 2, 2
+  size: 390, 288
+  orig: 392, 290
+  offset: 1, 1
+  index: -1
+youhui
+  rotate: true
+  xy: 394, 63
+  size: 69, 51
+  orig: 71, 53
+  offset: 1, 1
+  index: -1
+zuohou
+  rotate: true
+  xy: 394, 63
+  size: 69, 51
+  orig: 71, 53
+  offset: 1, 1
+  index: -1
+youqian
+  rotate: true
+  xy: 394, 213
+  size: 77, 57
+  orig: 79, 59
+  offset: 1, 1
+  index: -1
+zuoqian
+  rotate: true
+  xy: 394, 134
+  size: 77, 57
+  orig: 79, 59
+  offset: 1, 1
+  index: -1

@@ -1,0 +1,91 @@
+{
+"skeleton": {
+	"hash": "5jLmnRbmvUrwd7JlPNAYX6I9Pio",
+	"spine": "3.8.75",
+	"x": -198,
+	"width": 392,
+	"height": 294,
+	"images": "D:/桌面/小游戏UI/抓猫猫/动画素材/奔跑猫/images/",
+	"audio": "D:\\桌面\\小游戏UI\\抓猫猫\\动画素材\\奔跑猫"
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "bone", "parent": "root", "length": 75.85, "rotation": 31.12, "x": -27.35, "y": 67.86 },
+	{ "name": "bone2", "parent": "bone", "length": 56.63, "rotation": -36.53, "x": -0.71, "y": -3.17 },
+	{ "name": "bone3", "parent": "bone2", "length": 78.43, "rotation": -17.18, "x": 71.28, "y": -18.3 },
+	{ "name": "bone4", "parent": "bone2", "length": 77.53, "rotation": -13.95, "x": 56.47, "y": 19.73 },
+	{ "name": "bone5", "parent": "bone", "length": 51.37, "rotation": 167.62, "x": -9.89, "y": 0.58 },
+	{ "name": "bone6", "parent": "bone5", "length": 55.62, "rotation": 8.42, "x": 45.02, "y": -12.14 },
+	{ "name": "bone7", "parent": "bone5", "length": 51.61, "rotation": 3.42, "x": 1.42, "y": 21.11 }
+],
+"slots": [
+	{ "name": "zuoqian", "bone": "bone4", "attachment": "zuoqian" },
+	{ "name": "zuohou", "bone": "bone7", "attachment": "zuohou" },
+	{ "name": "shenti2", "bone": "bone", "attachment": "shenti" },
+	{ "name": "youhui", "bone": "bone6", "attachment": "youhui" },
+	{ "name": "youqian", "bone": "bone3", "attachment": "youqian" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"zuoqian": {
+				"zuoqian": { "x": 58.4, "y": 2.19, "rotation": 19.36, "width": 79, "height": 59 }
+			},
+			"shenti2": {
+				"shenti": { "x": 63.63, "y": 56.37, "rotation": -31.12, "width": 392, "height": 290 }
+			},
+			"youqian": {
+				"youqian": { "x": 28.52, "y": 0.67, "rotation": 22.59, "width": 79, "height": 59 }
+			},
+			"zuohou": {
+				"zuohou": { "x": 24.87, "y": -1.04, "rotation": 157.85, "width": 71, "height": 53 }
+			},
+			"youhui": {
+				"youhui": { "x": 37.35, "y": 0.84, "rotation": 152.85, "width": 71, "height": 53 }
+			}
+		}
+	}
+],
+"animations": {
+	"run": {
+		"bones": {
+			"bone6": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": 37.91 },
+					{ "time": 1 }
+				]
+			},
+			"bone3": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": -90.02 },
+					{ "time": 1 }
+				]
+			},
+			"bone7": {
+				"rotate": [
+					{ "angle": -2.18 },
+					{ "time": 0.5, "angle": 35.81 },
+					{ "time": 1, "angle": -2.18 }
+				]
+			},
+			"bone4": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "angle": -37.02 },
+					{ "time": 1 }
+				]
+			},
+			"bone": {
+				"rotate": [
+					{ "angle": 9.28 },
+					{ "time": 0.5, "angle": -1.2 },
+					{ "time": 1, "angle": 9.28 }
+				]
+			}
+		}
+	}
+}
+}
