@@ -516,6 +516,8 @@ export class gameScene extends Component {
         } else {
             console.log(log, '球的预制体为空');
         }
+        // 生成过程中也实时刷新剩余球量，避免大关卡(如第2关)开局十几秒内数字一直空白
+        this.jianchaShengyu()
     }
     /**
      * 点击屏幕操作
