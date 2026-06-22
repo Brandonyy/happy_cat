@@ -84,13 +84,18 @@ export class shengliPopTs extends Component {// 指针
         const bei = this.getBeishuByX(this.zhen.position.x)
         // 计算本关金币
         this.maobiNum = this.baseMaobiNum * bei
-        // 等待两秒，让玩家看清指针落点
-        await gameUtil.ins.yanchi(2)
-        // 金币入账 + 顶部飞币动画
+        // 指针落点确定后立即开始展示，不再空等：
+        // 阶段1：展示「金币 × 倍率」表达式，停留 1 秒
+        if (this.benguanNum) {
+            this.benguanNum.label.string = `${this.baseMaobiNum} × ${bei}`
+        }
+        await gameUtil.ins.yanchi(1)
+        // 阶段2：滚动展示相乘结果，停留 1 秒
+        this.benguanNum?.numAnima(this.maobiNum, 0.4)
+        await gameUtil.ins.yanchi(1)
+        // 阶段3：金币入账 + 顶部飞币动画
         maobiMgr.updateMaobi(this.maobiNum)
         director.emit(eventType.jinBiNum)
-        // 本关金币数字滚动到新值
-        this.benguanNum?.numAnima(this.maobiNum)
         // 按钮切换：隐藏“点击领取”，显示“加倍领取”与关闭按钮
         this.lingquBtn.active = false
         this.jiabeiBtn.active = true
