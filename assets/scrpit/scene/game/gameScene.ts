@@ -1,4 +1,4 @@
-import { _decorator, Button, Component, director, game, Input, input, isValid, KeyCode, Label, macro, math, Node, profiler, tween, UIOpacity, UITransform, v3, Vec3 } from 'cc';
+import { _decorator, Button, Component, director, game, Input, input, isValid, KeyCode, Label, macro, math, Node, profiler, Tween, tween, UIOpacity, UITransform, v3, Vec3 } from 'cc';
 import { gameData } from '../../configs/gameData';
 import { gameMoshi } from '../../configs/gameMoshi';
 import { putongLevelConfig, tiaozhanLevelConfig } from '../../configs/guanqiaConfig';
@@ -21,6 +21,7 @@ import { tujiMgr } from '../../managers/tujiMgr';
 import { PREVIEW } from 'cc/env';
 import { apiMgr } from '../../adWxDy/apiMgr';
 import { adMgr } from '../../adWxDy/adMgr';
+import { maobiMgr } from '../../managers/maobiMgr';
 const { ccclass, property } = _decorator;
 let log = 'gameScene'
 @ccclass('gameScene')
@@ -59,6 +60,14 @@ export class gameScene extends Component {
     // 广告插槽
     @property(Node)
     chacaoAd: Node[] = []
+    // 当前连击数
+    private comboCount: number = 0
+    // 上一次消除的时间戳(毫秒)，用于判定是否在连击窗口内
+    private lastMergeTime: number = 0
+    // 连击超时重置定时器
+    private comboResetId: number | null = null
+    // 常驻连击 HUD 节点（复用 comboPiao 预制体，不回收）
+    private comboHud: Node = null
     start() {
         this.init()
         this.initLevelConfig()
@@ -84,6 +93,11 @@ export class gameScene extends Component {
         director.off(eventType.nextLevel, this.nextLevel, this)
         // 注册复活事件
         director.off(eventType.fuhuo, this.fuhuo, this)
+        // 清理连击重置定时器，避免场景销毁后回调泄漏
+        if (this.comboResetId !== null) {
+            clearTimeout(this.comboResetId)
+            this.comboResetId = null
+        }
         this.unscheduleAllCallbacks()
     }
     init() {
@@ -648,6 +662,8 @@ export class gameScene extends Component {
         const deleteCnt: number = deleteIndexArr.length
         // 如果没有移除任何球，则直接返回
         if (deleteCnt <= 0) return
+        // 本次投球确实发生了消除，触发连击逻辑
+        this.onCombo()
         // 遍历移除的索引数组
         for (let i = 0; i < deleteIndexArr.length; i++) {
             // 获取当前遍历到的索引数组
@@ -705,8 +721,9 @@ export class gameScene extends Component {
             }
             // 延迟 0.28 秒后，播放合并音效并创建合并特效
             this.scheduleOnce(() => {
-                // 合并音效
-                musicMgr.ins.playSound('a合并')
+                // 合并音效（连击越高音量越大，营造爽感，上限 2 倍）
+                const comboVol: number = Math.min(1 + Math.max(this.comboCount - 1, 0) * 0.15, 2)
+                musicMgr.ins.playSound('a合并', comboVol)
                 // 创建合并特效
                 gameUtil.mergeTexiao('mergeTexiao', this.node, mubiaoWorldPos)
             }, 0.28)
@@ -714,6 +731,78 @@ export class gameScene extends Component {
             this.zbCreatBall(3)
             this.jianchaShengyu()
             this.ballBugXiufu()
+        }
+    }
+    /**
+     * 连击处理：在连击窗口内连续消除则累加连击数，
+     * 2 连及以上叠加震动 + 飘字 + 额外金币奖励，超时未消除则归零。
+     */
+    onCombo() {
+        const now: number = Date.now()
+        // 在连击窗口内则累加，否则重新从 1 开始计数
+        if (now - this.lastMergeTime <= gameConfig.comboWindowTime * 1000) {
+            this.comboCount++
+        } else {
+            this.comboCount = 1
+        }
+        this.lastMergeTime = now
+        // 重置连击超时定时器：窗口时间内没有新的消除则连击归零
+        if (this.comboResetId !== null) {
+            clearTimeout(this.comboResetId)
+        }
+        this.comboResetId = setTimeout(() => {
+            this.comboCount = 0
+            this.comboResetId = null
+            // 连击窗口超时，隐藏常驻 HUD
+            this.hideComboHud()
+        }, gameConfig.comboWindowTime * 1000)
+        // 2 连及以上才有连击表现与奖励
+        if (this.comboCount < 2) return
+        // 额外奖励金币（金币道具 id 为 0），静默累加，结算 / 主界面体现
+        const bonus: number = (this.comboCount - 1) * gameConfig.comboJinbi
+        maobiMgr.updateMaobi(bonus)
+        // 手机轻微震动
+        apiMgr.zhenDong()
+        // 更新常驻连击 HUD
+        this.updateComboHud(this.comboCount)
+    }
+    /**
+     * 更新常驻连击 HUD：屏幕上方常驻显示 "连击 ×N"，每次连击跳动强调，
+     * 停顿期间保持显示，直到连击窗口超时才隐藏。
+     */
+    updateComboHud(combo: number) {
+        // 懒创建常驻连击节点（复用 comboPiao 预制体，全程不回收）
+        if (!this.comboHud || !isValid(this.comboHud)) {
+            this.comboHud = poolMgr.ins.getPoolNode('comboPiao', this.node)
+            if (!this.comboHud) return
+            // 固定显示在屏幕上方
+            this.comboHud.setPosition(0, 350, 0)
+        }
+        this.comboHud.active = true
+        // 透明度复位
+        let opac: UIOpacity = this.comboHud.getComponent(UIOpacity)
+        if (!opac) opac = this.comboHud.addComponent(UIOpacity)
+        opac.opacity = 255
+        // 更新连击文字
+        const labelNode: Node = this.comboHud.getChildByName('label')
+        if (labelNode) {
+            labelNode.getComponent(Label).string = `连击 ×${combo}`
+        }
+        // 每次连击跳动强调
+        Tween.stopAllByTarget(this.comboHud)
+        this.comboHud.setScale(1, 1, 1)
+        tween(this.comboHud)
+            .to(0.1, { scale: v3(1.3, 1.3, 1) }, { easing: 'backOut' })
+            .to(0.12, { scale: v3(1, 1, 1) })
+            .start()
+    }
+    /**
+     * 隐藏常驻连击 HUD（连击窗口超时归零时调用）。
+     */
+    hideComboHud() {
+        if (this.comboHud && isValid(this.comboHud)) {
+            Tween.stopAllByTarget(this.comboHud)
+            this.comboHud.active = false
         }
     }
     // 定义一个定时器ID变量

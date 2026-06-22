@@ -57,9 +57,9 @@ export class musicMgr extends Component {
     /**
     * 播放一次性音效
     */
-    public async playSound(audio: string) {
+    public async playSound(audio: string, volumeScale: number = 1) {
         let clip = await resMgr.ins.getClip(audio);
-        this.soundComp.playOneShot(clip, shezhiMgr.YinxiaoValue);
+        this.soundComp.playOneShot(clip, shezhiMgr.YinxiaoValue * volumeScale);
     }
 }
 
