@@ -23,7 +23,9 @@ export class gameConfig extends Component {
     static minBallScale: number = 0.65
     // 整个屏幕所能容纳的最大组数，默认为 20
     static maxZushu: number = 20
-    // 槽位数量，默认为 7s
+    // 永久基础槽位数量（不可通过广告永久增加），每关开局重置到此值
+    static readonly baseChacaoNum: number = 5
+    // 本关当前可用槽位数量；看广告临时解锁 6/7 槽，过关重载后由 baseChacaoNum 还原
     static chacaoNum: number = 5
     // 冻结时间，单位为秒，默认为 30 秒
     static dongjieTime: number = 30

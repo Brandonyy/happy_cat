@@ -118,6 +118,8 @@ export class gameScene extends Component {
         this.allBallData = []
         this.youxianCreateBalls = []
         gameData.selectBallIdArr = []
+        // 每关开局把临时解锁的 6/7 槽还原为永久基础槽位（场景重载不会自动还原 static）
+        gameConfig.chacaoNum = gameConfig.baseChacaoNum
         // 插槽节点解锁状况
         this.jianchaChacao()
         // 注册选择球事件的监听器
@@ -1315,7 +1317,7 @@ export class gameScene extends Component {
                 adMgr.showVideo(() => {
                     gameConfig.chacaoNum = 6
                     this.chacaoAd[0].children[0].active = false
-                    bendiUtil.setItem('chacaoNum', 6)
+                    // 临时解锁，仅本关有效，不写本地存档；过关重载后还原为基础槽位
                     tishiMgr.titleTips(gameData.game, '已解锁新插槽')
                     const button1 = this.chacaoAd[0].getComponent(Button);
                     if (button1) {
@@ -1327,7 +1329,7 @@ export class gameScene extends Component {
                 adMgr.showVideo(() => {
                     gameConfig.chacaoNum = 7
                     this.chacaoAd[1].children[0].active = false
-                    bendiUtil.setItem('chacaoNum', 7)
+                    // 临时解锁，仅本关有效，不写本地存档；过关重载后还原为基础槽位
                     tishiMgr.titleTips(gameData.game, '已解锁新插槽')
                     const button2 = this.chacaoAd[1].getComponent(Button);
                     if (button2) {
