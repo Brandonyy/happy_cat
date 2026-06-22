@@ -1,4 +1,4 @@
-import { _decorator, Button, Component, director, game, Input, input, isValid, KeyCode, Label, macro, math, Node, profiler, Tween, tween, UIOpacity, UITransform, v3, Vec3 } from 'cc';
+import { _decorator, Button, Color, Component, director, game, Graphics, Input, input, isValid, KeyCode, Label, macro, math, Node, profiler, Tween, tween, UIOpacity, UITransform, v3, Vec3 } from 'cc';
 import { gameData } from '../../configs/gameData';
 import { gameMoshi } from '../../configs/gameMoshi';
 import { putongLevelConfig, tiaozhanLevelConfig } from '../../configs/guanqiaConfig';
@@ -68,6 +68,8 @@ export class gameScene extends Component {
     private comboResetId: number | null = null
     // 常驻连击 HUD 节点（复用 comboPiao 预制体，不回收）
     private comboHud: Node = null
+    // 连击消失进度条的 Graphics 组件
+    private comboBar: Graphics = null
     start() {
         this.init()
         this.initLevelConfig()
@@ -777,6 +779,9 @@ export class gameScene extends Component {
             if (!this.comboHud) return
             // 固定显示在屏幕上方
             this.comboHud.setPosition(0, 350, 0)
+            // 缓存进度条 Graphics
+            const barNode: Node = this.comboHud.getChildByName('bar')
+            this.comboBar = barNode ? barNode.getComponent(Graphics) : null
         }
         this.comboHud.active = true
         // 透明度复位
@@ -803,6 +808,41 @@ export class gameScene extends Component {
         if (this.comboHud && isValid(this.comboHud)) {
             Tween.stopAllByTarget(this.comboHud)
             this.comboHud.active = false
+        }
+    }
+    /**
+     * 每帧刷新连击消失进度条
+     */
+    update(dt: number) {
+        if (gameData.zanting) return
+        if (!this.comboHud || !this.comboHud.active || !this.comboBar) return
+        const windowMs: number = gameConfig.comboWindowTime * 1000
+        const ratio: number = math.clamp(1 - (Date.now() - this.lastMergeTime) / windowMs, 0, 1)
+        this.drawComboBar(ratio)
+    }
+    /**
+     * 绘制连击消失进度条：底槽 + 随剩余比例收缩的填充条（绿 → 红渐变制造紧张感）
+     */
+    drawComboBar(ratio: number) {
+        const g: Graphics = this.comboBar
+        const W: number = 200
+        const H: number = 16
+        const x: number = -W / 2
+        const r: number = H / 2
+        g.clear()
+        // 底槽
+        g.fillColor = new Color(0, 0, 0, 120)
+        g.roundRect(x, -H / 2, W, H, r)
+        g.fill()
+        // 进度填充：剩余越少越偏红，制造紧张感
+        if (ratio > 0) {
+            const fillW: number = Math.max(W * ratio, H)
+            const cr: number = Math.round(230 - 170 * ratio)
+            const cg: number = Math.round(60 + 160 * ratio)
+            const cb: number = Math.round(60 + 20 * ratio)
+            g.fillColor = new Color(cr, cg, cb, 255)
+            g.roundRect(x, -H / 2, fillW, H, r)
+            g.fill()
         }
     }
     // 定义一个定时器ID变量

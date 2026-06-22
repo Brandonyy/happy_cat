@@ -32,7 +32,7 @@ export class gameConfig extends Component {
     static homeJiesuoJinbi: number = 999
     static tiaozhanJinbi: number = 1000
     // 连击有效窗口：上次消除后多少秒内再次消除算作连击，单位秒，默认 5 秒
-    static comboWindowTime: number = 5
+    static comboWindowTime: number = 3
     // 每提升一级连击额外奖励的金币数（从 2 连开始计），默认每级 +2
     static comboJinbi: number = 2
 }
