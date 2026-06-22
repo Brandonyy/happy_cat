@@ -15,10 +15,10 @@ export const putongLevelConfig = [
     },
     {
         id: 2,
-        fenzu: 80,
+        fenzu: 12,
         catFenzu: 0,
-        peiduiFenzu: 50,
-        time: 350,
+        peiduiFenzu: 9,
+        time: 60,
     },
     {
         id: 3,
