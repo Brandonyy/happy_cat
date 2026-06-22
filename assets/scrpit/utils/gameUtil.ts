@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3 } from 'cc';
+import { _decorator, Color, Component, Label, LabelOutline, Node, tween, UIOpacity, UITransform, v3, Vec3 } from 'cc';
 import { poolMgr } from '../managers/poolMgr';
 const { ccclass, property } = _decorator;
 //源码网站 开vpn全局模式打开 https://web3incubators.com/
@@ -29,6 +29,59 @@ export class gameUtil extends Component {
         if (worldPos) {
             texiao.setWorldPosition(worldPos)
         }
+    }
+
+    /**
+     * 飘字（降级方案：纯代码动态生成带描边的 Label，上浮 + 回弹 + 淡出后自毁，
+     * 不依赖任何预制体 / 新美术资源）。
+     * @param text     文案，如 "+6" / "Nice!"
+     * @param parent   挂载父节点（一般传 gameScene.node）
+     * @param worldPos 起始世界坐标
+     * @param opts     可选：fontSize 字号、color 文字色、rise 上浮距离、hold 停留时长
+     */
+    static piaoZi(
+        text: string,
+        parent: Node,
+        worldPos: Vec3,
+        opts?: { fontSize?: number, color?: Color, rise?: number, hold?: number }
+    ) {
+        const fontSize: number = opts?.fontSize ?? 50
+        const color: Color = opts?.color ?? new Color(255, 221, 64, 255) // 金黄
+        const rise: number = opts?.rise ?? 80
+        const hold: number = opts?.hold ?? 0.2
+
+        const node = new Node('piaoZi')
+        // 跟随父节点图层，保证被 UI 相机渲染
+        node.layer = parent.layer
+        const label = node.addComponent(Label) // Label 自带 UITransform
+        label.string = text
+        label.fontSize = fontSize
+        label.lineHeight = fontSize
+        label.color = color
+        const outline = node.addComponent(LabelOutline)
+        outline.color = new Color(80, 40, 0, 255)
+        outline.width = 3
+
+        node.parent = parent
+        node.setWorldPosition(worldPos)
+        node.setScale(0.4, 0.4, 1)
+
+        const ui = node.addComponent(UIOpacity)
+        // 入场回弹
+        tween(node)
+            .to(0.14, { scale: v3(1.15, 1.15, 1) }, { easing: 'backOut' })
+            .to(0.1, { scale: v3(1, 1, 1) })
+            .start()
+        // 上浮
+        tween(node)
+            .by(hold + 0.4, { position: v3(0, rise, 0) }, { easing: 'sineOut' })
+            .start()
+        // 停留后淡出并自毁
+        tween(ui)
+            .delay(hold + 0.1)
+            .to(0.3, { opacity: 0 })
+            .call(() => { if (node.isValid) node.destroy() })
+            .start()
     }
 
     /**

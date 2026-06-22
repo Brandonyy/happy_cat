@@ -37,6 +37,16 @@ export class gameConfig extends Component {
     static comboWindowTime: number = 3
     // 每提升一级连击额外奖励的金币数（从 2 连开始计），默认每级 +2
     static comboJinbi: number = 2
+    // 消除鼓励飘字：达到 combo 连及以上时显示对应文案（取满足条件的最高一档），1 连不显示
+    static juiceWords: { combo: number, text: string }[] = [
+        { combo: 2, text: 'Nice!' },
+        { combo: 4, text: 'Great!' },
+        { combo: 6, text: 'Amazing!' },
+    ]
+    // 微震屏：基础振幅(px) / 每提升一级连击的振幅增量 / 振幅上限
+    static shakeBase: number = 4
+    static shakeStep: number = 1.5
+    static shakeMax: number = 12
 }
 
 

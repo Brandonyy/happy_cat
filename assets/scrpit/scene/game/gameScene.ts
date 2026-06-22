@@ -70,6 +70,8 @@ export class gameScene extends Component {
     private comboHud: Node = null
     // 连击消失进度条的 Graphics 组件
     private comboBar: Graphics = null
+    // 震屏目标节点的原始位置（首次震屏时缓存，每次震屏后复位，避免漂移）
+    private shakeBasePos: Vec3 = null
     start() {
         this.init()
         this.initLevelConfig()
@@ -668,6 +670,8 @@ export class gameScene extends Component {
         if (deleteCnt <= 0) return
         // 本次投球确实发生了消除，触发连击逻辑
         this.onCombo()
+        // juice：合并瞬间微震屏，强度随连击递增
+        this.shakeScreen(this.comboCount)
         // 遍历移除的索引数组
         for (let i = 0; i < deleteIndexArr.length; i++) {
             // 获取当前遍历到的索引数组
@@ -730,6 +734,11 @@ export class gameScene extends Component {
                 musicMgr.ins.playSound('a合并', comboVol)
                 // 创建合并特效
                 gameUtil.mergeTexiao('mergeTexiao', this.node, mubiaoWorldPos)
+                // juice：连击鼓励飘字（2 连起，按阈值取词），在消除汇聚点弹出
+                const word: string = this.getJuiceWord(this.comboCount)
+                if (word) {
+                    gameUtil.piaoZi(word, this.node, mubiaoWorldPos, { fontSize: 56 })
+                }
             }, 0.28)
             // 触发请求创建新球的事件
             this.zbCreatBall(3)
@@ -765,6 +774,11 @@ export class gameScene extends Component {
         // 额外奖励金币（金币道具 id 为 0），静默累加，结算 / 主界面体现
         const bonus: number = (this.comboCount - 1) * gameConfig.comboJinbi
         maobiMgr.updateMaobi(bonus)
+        // juice：金币奖励飘字，屏幕上方（连击 HUD 下方）弹出 "+N"
+        if (bonus > 0) {
+            const coinWorld: Vec3 = this.uiTrans.convertToWorldSpaceAR(v3(0, 250, 0))
+            gameUtil.piaoZi(`+${bonus}`, this.node, coinWorld, { fontSize: 72 })
+        }
         // 手机轻微震动
         apiMgr.zhenDong()
         // 更新常驻连击 HUD
@@ -811,6 +825,65 @@ export class gameScene extends Component {
             Tween.stopAllByTarget(this.comboHud)
             this.comboHud.active = false
         }
+    }
+    /**
+     * 按连击数取鼓励飘字文案（取满足 combo 阈值的最高一档），不足 2 连返回空串。
+     */
+    getJuiceWord(combo: number): string {
+        let word: string = ''
+        const list = gameConfig.juiceWords
+        for (let i = 0; i < list.length; i++) {
+            if (combo >= list[i].combo) word = list[i].text
+        }
+        return word
+    }
+    /**
+     * 微震屏（juice）：对根节点做一次性快速左右抖动，强度随连击递增。
+     * 首次缓存原始位置，每次抖动结束强制复位，避免累积漂移。
+     */
+    shakeScreen(combo: number) {
+        const target: Node = this.node
+        if (!this.shakeBasePos) {
+            this.shakeBasePos = target.position.clone()
+        }
+        const amp: number = Math.min(
+            gameConfig.shakeBase + Math.max(combo - 1, 0) * gameConfig.shakeStep,
+            gameConfig.shakeMax
+        )
+        Tween.stopAllByTarget(target)
+        target.setPosition(this.shakeBasePos)
+        tween(target)
+            .by(0.04, { position: v3(amp, 0, 0) })
+            .by(0.06, { position: v3(-amp * 2, 0, 0) })
+            .by(0.04, { position: v3(amp, 0, 0) })
+            .call(() => { target.setPosition(this.shakeBasePos) })
+            .start()
+    }
+    /**
+     * 清场庆祝（juice 降级方案）：复用现有合并特效在中心多点炸开 + "Perfect!" 大字，
+     * 播完后回调打开结算页。无新美术资源。
+     */
+    qingChangCele(onDone: () => void) {
+        const centerWorld: Vec3 = this.uiTrans.convertToWorldSpaceAR(v3(0, 60, 0))
+        // 中心 + 四周随机点位炸开合并特效，模拟撒花
+        for (let i = 0; i < 6; i++) {
+            const ox: number = (Math.random() - 0.5) * 360
+            const oy: number = (Math.random() - 0.5) * 360
+            const pos: Vec3 = v3(centerWorld.x + ox, centerWorld.y + oy, 0)
+            this.scheduleOnce(() => {
+                gameUtil.mergeTexiao('mergeTexiao', this.node, pos)
+            }, i * 0.08)
+        }
+        // "Perfect!" 大字
+        gameUtil.piaoZi('Perfect!', this.node, centerWorld, {
+            fontSize: 96,
+            color: new Color(255, 120, 60, 255),
+            rise: 40,
+            hold: 1.0,
+        })
+        musicMgr.ins.playSound('a合并', 2)
+        // 庆祝动画后再开结算页
+        this.scheduleOnce(() => { onDone() }, 1.5)
     }
     /**
      * 每帧刷新连击消失进度条
@@ -987,8 +1060,10 @@ export class gameScene extends Component {
                 break;
             // 如果超级模式等级为 2
             case 2:
-                // 打开超级模式胜利界面
-                poolMgr.ins.getPoolNode('tiaozhanShengliPop', gameData.game)
+                // juice：先播清场庆祝，再打开超级模式胜利界面
+                this.qingChangCele(() => {
+                    poolMgr.ins.getPoolNode('tiaozhanShengliPop', gameData.game)
+                })
                 break;
         }
     }
@@ -998,8 +1073,10 @@ export class gameScene extends Component {
     putongWin() {
         // 暂停游戏
         gameData.zanting = true
-        // 触发普通模式获胜事件
-        poolMgr.ins.getPoolNode('shengliPop', gameData.game)
+        // juice：先播清场庆祝，再打开结算页
+        this.qingChangCele(() => {
+            poolMgr.ins.getPoolNode('shengliPop', gameData.game)
+        })
         console.log('游戏普通模式胜利');
     }
     /**
