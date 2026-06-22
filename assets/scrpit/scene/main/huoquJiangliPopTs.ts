@@ -46,6 +46,8 @@ export class huoquJiangliPopTs extends Component {
         this.init()
     }
     init() {
+        // 重置回调，避免对象池复用时残留上一次的回调
+        this.callback = null
         // 获取当前阶段的奖励数据
         this.jlArr = gameData.jingpinArr
         // 设置当前奖励为奖励数组中的第一个元素，并从数组中移除该元素
@@ -97,7 +99,6 @@ export class huoquJiangliPopTs extends Component {
         adMgr.showVideo(() => {
             // 观看广告
             this.shuang()
-            this.callback()
         })
     }
     async shuang() {
@@ -115,6 +116,10 @@ export class huoquJiangliPopTs extends Component {
             // 获取当前奖励并等待操作完成
             await this.getJlItem(1)
             this.isDianji = true
+            // 全部奖励领取完毕，触发回调（扭蛋等无回调场景下跳过）
+            if (this.callback) {
+                this.callback()
+            }
             // 关闭当前界面
             this.node.destroy()
         } else {
