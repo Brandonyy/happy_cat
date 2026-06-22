@@ -70,7 +70,8 @@ export class gameScene extends Component {
     private comboHud: Node = null
     // 连击消失进度条的 Graphics 组件
     private comboBar: Graphics = null
-    // 震屏目标节点的原始位置（首次震屏时缓存，每次震屏后复位，避免漂移）
+    // 震屏目标（渲染相机节点）及其原始位置（首次震屏时缓存，每次震屏后复位，避免漂移）
+    private shakeTarget: Node = null
     private shakeBasePos: Vec3 = null
     start() {
         this.init()
@@ -838,25 +839,35 @@ export class gameScene extends Component {
         return word
     }
     /**
-     * 微震屏（juice）：对根节点做一次性快速左右抖动，强度随连击递增。
-     * 首次缓存原始位置，每次抖动结束强制复位，避免累积漂移。
+     * 微震屏（juice）：抖动渲染相机，整屏统一位移，强度随连击递增。
+     * 注意：根节点 Canvas 带 Widget 会每帧把位置拉回（抖不动），故改抖 Canvas 下
+     * 无 Widget 的 Camera 节点。首次缓存相机原位，每次抖动结束强制复位，避免漂移。
      */
     shakeScreen(combo: number) {
-        const target: Node = this.node
-        if (!this.shakeBasePos) {
-            this.shakeBasePos = target.position.clone()
+        if (!this.shakeTarget || !isValid(this.shakeTarget)) {
+            this.shakeTarget = this.node.getChildByName('Camera')
+            if (!this.shakeTarget) return
+            this.shakeBasePos = this.shakeTarget.position.clone()
         }
+        const target: Node = this.shakeTarget
         const amp: number = Math.min(
             gameConfig.shakeBase + Math.max(combo - 1, 0) * gameConfig.shakeStep,
             gameConfig.shakeMax
         )
+        const base: Vec3 = this.shakeBasePos
         Tween.stopAllByTarget(target)
-        target.setPosition(this.shakeBasePos)
-        tween(target)
-            .by(0.04, { position: v3(amp, 0, 0) })
-            .by(0.06, { position: v3(-amp * 2, 0, 0) })
-            .by(0.04, { position: v3(amp, 0, 0) })
-            .call(() => { target.setPosition(this.shakeBasePos) })
+        // 衰减式多段抖动：左右 + 上下交替，振幅逐段递减，结束强制复位（保留相机 z）
+        const offs: number[][] = [
+            [1, 0.6], [-0.9, -0.5], [0.7, 0.45], [-0.55, -0.35], [0.4, 0.25], [-0.25, -0.15],
+        ]
+        let tw = tween(target)
+        for (let i = 0; i < offs.length; i++) {
+            const dx: number = base.x + amp * offs[i][0]
+            const dy: number = base.y + amp * offs[i][1]
+            tw = tw.to(0.035, { position: v3(dx, dy, base.z) })
+        }
+        tw.to(0.035, { position: base.clone() })
+            .call(() => { target.setPosition(base) })
             .start()
     }
     /**

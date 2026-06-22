@@ -44,9 +44,9 @@ export class gameConfig extends Component {
         { combo: 6, text: 'Amazing!' },
     ]
     // 微震屏：基础振幅(px) / 每提升一级连击的振幅增量 / 振幅上限
-    static shakeBase: number = 4
-    static shakeStep: number = 1.5
-    static shakeMax: number = 12
+    static shakeBase: number = 14
+    static shakeStep: number = 4
+    static shakeMax: number = 40
 }
 
 
