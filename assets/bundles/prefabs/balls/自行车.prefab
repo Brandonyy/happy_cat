@@ -179,7 +179,7 @@
     "fileId": "e6tTMpnPJL8JpiaMJwlSFg"
   },
   {
-    "__type__": "cc.PolygonCollider2D",
+    "__type__": "cc.CircleCollider2D",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -198,117 +198,11 @@
     "_restitution": 0,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 0.0,
+      "y": 1.0
     },
-    "_points": [
-      {
-        "__type__": "cc.Vec2",
-        "x": 23,
-        "y": 79
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 1,
-        "y": 66
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 14,
-        "y": 32
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -1,
-        "y": 5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -9,
-        "y": 51
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -57,
-        "y": 53
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -71,
-        "y": 43
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -71,
-        "y": 17
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -105,
-        "y": -17
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -101,
-        "y": -53
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -71,
-        "y": -77
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -39,
-        "y": -75
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -17,
-        "y": -54
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 10,
-        "y": -49
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 37,
-        "y": -76
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 86,
-        "y": -71
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 105,
-        "y": -44
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 102,
-        "y": -8
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 85,
-        "y": 12
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 61,
-        "y": 18
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 44,
-        "y": 72
-      }
-    ],
-    "_id": ""
+    "_id": "",
+    "_radius": 91.5
   },
   {
     "__type__": "cc.CompPrefabInfo",
