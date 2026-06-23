@@ -138,6 +138,18 @@ export class wxAd extends Component {
             if (!this.videoAd) {
                 this.createVideoAd()
             }
+            // 关闭回调（具名以便 offClose，避免多次播放后回调叠加）
+            const onClose = (res) => {
+                this.videoAd.offClose(onClose);
+                // 正常播放结束（res.isEnded 或 res 为空），下发奖励
+                if ((res && res.isEnded) || res === undefined) {
+                    resolve(true)
+                } else {
+                    // 播放中途退出，不下发游戏奖励
+                    resolve(false)
+                }
+            };
+            this.videoAd.onClose(onClose);
             // 用户触发广告后，显示激励视频广告
             this.videoAd.show().catch(() => {
                 // 失败重试
@@ -146,22 +158,19 @@ export class wxAd extends Component {
                     .then(() => this.videoAd.show())
                     .catch((err) => {
                         console.error('激励视频 广告显示失败', err);
+                        this.videoAd.offClose(onClose);
                         reject(err);
                     });
             });
-            this.videoAd.onClose((res) => {
-                if (!this.videoAd) return;
-                this.videoAd.offClose();
-                // 用户点击了【关闭广告】按钮
-                if ((res && res.isEnded) || res === undefined) {
-                    // 正常播放结束，可以下发游戏奖励
-                    resolve(true)
-                } else {
-                    // 播放中途退出，不下发游戏奖励
-                    resolve(false)
-                }
-            });
         })
+    }
+    // 预加载下一条激励视频（播完后调用，提升下次填充率）
+    preloadVideo() {
+        if (!this.videoAd) {
+            this.createVideoAd()
+            return
+        }
+        this.videoAd.load().catch((err) => console.log('激励视频预加载失败', err))
     }
 }
 

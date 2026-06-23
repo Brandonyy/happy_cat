@@ -119,6 +119,14 @@ export class dyAd extends Component {
             })
         })
     }
+    // 预加载下一条激励视频（播完后调用，提升下次填充率）
+    preloadVideo() {
+        if (!this.videoAd) {
+            this.createVideoAd()
+            return
+        }
+        this.videoAd.load().catch((err) => console.log('激励视频预加载失败', err))
+    }
 }
 
 
