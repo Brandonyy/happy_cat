@@ -6,7 +6,7 @@
         "D:/cocos/happy_cat/extensions/cocos-creator-mcp/client/stdio-bridge.js"
       ],
       "env": {
-        "COCOS_MCP_URL": "http://127.0.0.1:3000/mcp"
+        "COCOS_MCP_URL": "http://127.0.0.1:3799/mcp"
       }
     }
   }

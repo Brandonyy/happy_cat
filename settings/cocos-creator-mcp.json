@@ -1,4 +1,5 @@
 {
-  "port": 3000,
-  "autoStart": true
+  "port": 3799,
+  "autoStart": true,
+  "autoArchiveRecordings": false
 }
