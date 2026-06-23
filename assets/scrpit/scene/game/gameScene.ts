@@ -72,6 +72,8 @@ export class gameScene extends Component {
     // 震屏目标（渲染相机节点）及其原始位置（首次震屏时缓存，每次震屏后复位，避免漂移）
     private shakeTarget: Node = null
     private shakeBasePos: Vec3 = null
+    // 预览模式下的空格过关测试监听（保存引用以便 onDestroy 注销，避免每次场景重载叠加监听导致旧场景无法回收）
+    private testKeyDownHandler: ((e: any) => void) | null = null
     start() {
         this.init()
         this.initLevelConfig()
@@ -101,6 +103,17 @@ export class gameScene extends Component {
         if (this.comboResetId !== null) {
             clearTimeout(this.comboResetId)
             this.comboResetId = null
+        }
+        // 注销预览模式的空格测试监听，否则每过一关都会在全局 input 上叠加一个监听，
+        // 且其闭包持有旧场景的 this，导致旧场景无法被 GC，关数越多越卡
+        if (this.testKeyDownHandler) {
+            input.off(Input.EventType.KEY_DOWN, this.testKeyDownHandler, this)
+            this.testKeyDownHandler = null
+        }
+        // 清理兜底清场定时器，避免场景销毁后回调操作已失效的节点
+        if (this.checkBallTimeoutId !== null) {
+            clearTimeout(this.checkBallTimeoutId)
+            this.checkBallTimeoutId = null
         }
         this.unscheduleAllCallbacks()
     }
@@ -151,8 +164,8 @@ export class gameScene extends Component {
     testNext() {
         // PREVIEW 是一个布尔变量，通常用于判断是否处于预览模式
         if (PREVIEW) {
-            // 注册键盘按下事件的监听器
-            input.on(Input.EventType.KEY_DOWN, (e) => {
+            // 注册键盘按下事件的监听器（保存引用，onDestroy 时注销）
+            this.testKeyDownHandler = (e) => {
                 // 检查按下的键是否为空格键
                 if (e.keyCode === KeyCode.SPACE) {
                     // 根据游戏模式处理胜利逻辑
@@ -167,7 +180,8 @@ export class gameScene extends Component {
                             break
                     }
                 }
-            }, this)
+            }
+            input.on(Input.EventType.KEY_DOWN, this.testKeyDownHandler, this)
         }
     }
     /**

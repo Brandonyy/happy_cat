@@ -19,6 +19,10 @@ export class mainScene extends Component {
         // 收藏有礼
         director.on(eventType.addToMini, this.isAddToMini, this)
     }
+    protected onDestroy(): void {
+        // 注销收藏有礼监听，否则每次返回主菜单都会在全局 director 叠加监听、拖住旧 mainScene 无法回收
+        director.off(eventType.addToMini, this.isAddToMini, this)
+    }
     start() {
         this.init()
     }
