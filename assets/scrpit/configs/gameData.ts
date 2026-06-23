@@ -33,6 +33,8 @@ export class gameData {
     static addDaojuType = null
     //默认物品数量
     static morenWupin: { [key: number]: number } = { 0: 0, 1: 0, 2: 0, 3: 0 }
+    // 本关累计的连击奖励金币（关内不入账，结算时连同基础金币一起展示并入账）
+    static benguanComboJinbi: number = 0
 }
 
 

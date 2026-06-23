@@ -13,10 +13,18 @@ const { ccclass, property } = _decorator;
 export class shengliPopTs extends Component {// 指针
     @property(Node)
     zhen: Node = null
-    // 本关金币数量（当前展示值）
+    // 本关入账总金币（基础 + 连击，均已乘倍率）
     private maobiNum = 0
     // 基础金币数量（未乘倍数）
     private baseMaobiNum = 0
+    // 本关连击奖励金币（未乘倍数）
+    private comboJinbi = 0
+    // 已乘倍率的基础金币（用于加倍领取时翻倍展示）
+    private baseTotal = 0
+    // 已乘倍率的连击奖励金币（用于加倍领取时翻倍展示）
+    private comboTotal = 0
+    // 连击奖励数字动画（预制体内 popUI/comboNum 的 numAnimaTs，与基础金币一致的滚动表现）
+    private comboNumAnim: numAnimaTs = null
     // 指针动画
     private dh = null
     // 是否已经领取
@@ -51,15 +59,40 @@ export class shengliPopTs extends Component {// 指针
         ).repeatForever().start()
         // 计算本关获得的默认金币数量
         this.baseMaobiNum = gameConfig.levelAddMaobiNum + (gameData.putongLevel - 1) * gameConfig.levelAddMaobiNum
+        // 本关连击累计的奖励金币（关内只累计，未入账）
+        this.comboJinbi = gameData.benguanComboJinbi || 0
         this.maobiNum = this.baseMaobiNum
-        // 初始化本关金币展示
+        // 基础金币行加「过关奖励 +」前缀（用 qianzhui 保证滚动动画时前缀不丢）
+        if (this.benguanNum) this.benguanNum.qianzhui = '过关奖励 +'
+        // 初始化本关金币展示（基础金币）
         this.benguanNum?.init(this.baseMaobiNum)
+        // 连击奖励行（预制体内 comboNum）：有连击奖励才显示，否则隐藏避免空行
+        this.initComboLabel(popUI)
         // 初始按钮状态：只展示“点击领取”
         this.lingquBtn.active = true
         this.jiabeiBtn.active = false
         if (this.closeBtn) this.closeBtn.active = false
         // 显示广告
         adMgr.showChaPing()
+    }
+    /**
+     * 初始化预制体内的「连击奖励」行（popUI/comboNum）。
+     * 无连击奖励（=0）时隐藏节点，避免出现空行；样式/位置可在预制体里直接调。
+     */
+    private initComboLabel(popUI: Node) {
+        const comboNode = popUI.getChildByName('comboNum')
+        if (!comboNode) return
+        if (this.comboJinbi <= 0) {
+            comboNode.active = false
+            return
+        }
+        comboNode.active = true
+        this.comboNumAnim = comboNode.getComponent(numAnimaTs)
+        if (this.comboNumAnim) {
+            // 与基础金币行一致：用 qianzhui 保证滚动动画时「连击奖励 +」前缀不丢
+            this.comboNumAnim.qianzhui = '连击奖励 +'
+            this.comboNumAnim.init(this.comboJinbi)
+        }
     }
     /**
      * 根据指针所在的 x 位置获取对应倍数
@@ -82,18 +115,24 @@ export class shengliPopTs extends Component {// 指针
         this.dh.stop()
         // 取指针所在倍数
         const bei = this.getBeishuByX(this.zhen.position.x)
-        // 计算本关金币
-        this.maobiNum = this.baseMaobiNum * bei
+        // 基础金币与连击奖励均乘倍率，分别记录用于分行展示
+        this.baseTotal = this.baseMaobiNum * bei
+        this.comboTotal = this.comboJinbi * bei
+        this.maobiNum = this.baseTotal + this.comboTotal
         // 指针落点确定后立即开始展示，不再空等：
-        // 阶段1：展示「金币 × 倍率」表达式，停留 1 秒
+        // 阶段1：两行各自展示「金币 × 倍率」表达式，停留 1 秒
         if (this.benguanNum) {
-            this.benguanNum.label.string = `${this.baseMaobiNum} × ${bei}`
+            this.benguanNum.label.string = `过关奖励 ${this.baseMaobiNum} × ${bei}`
+        }
+        if (this.comboNumAnim) {
+            this.comboNumAnim.label.string = `连击奖励 ${this.comboJinbi} × ${bei}`
         }
         await gameUtil.ins.yanchi(1)
-        // 阶段2：滚动展示相乘结果，停留 1 秒
-        this.benguanNum?.numAnima(this.maobiNum, 0.4)
+        // 阶段2：基础金币与连击奖励同步滚动到各自乘后结果，停留 1 秒
+        this.benguanNum?.numAnima(this.baseTotal, 0.4)
+        this.comboNumAnim?.numAnima(this.comboTotal, 0.4)
         await gameUtil.ins.yanchi(1)
-        // 阶段3：金币入账 + 顶部飞币动画
+        // 阶段3：金币入账（基础 + 连击）+ 顶部飞币动画
         maobiMgr.updateMaobi(this.maobiNum)
         director.emit(eventType.jinBiNum)
         // 按钮切换：隐藏“点击领取”，显示“加倍领取”与关闭按钮
@@ -117,9 +156,12 @@ export class shengliPopTs extends Component {// 指针
         // 再补入一份金币（使总额变为两倍）+ 飞币动画
         maobiMgr.updateMaobi(this.maobiNum)
         director.emit(eventType.jinBiNum)
-        // 本关金币翻倍并滚动
-        this.maobiNum = this.maobiNum * 2
-        this.benguanNum?.numAnima(this.maobiNum)
+        // 基础与连击奖励同步翻倍并刷新两行展示
+        this.baseTotal = this.baseTotal * 2
+        this.comboTotal = this.comboTotal * 2
+        this.maobiNum = this.baseTotal + this.comboTotal
+        this.benguanNum?.numAnima(this.baseTotal)
+        this.comboNumAnim?.numAnima(this.comboTotal)
         // 加倍按钮消失
         this.jiabeiBtn.active = false
         // 等待飞币动画后自动进入下一关

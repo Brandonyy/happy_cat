@@ -21,7 +21,6 @@ import { tujiMgr } from '../../managers/tujiMgr';
 import { PREVIEW } from 'cc/env';
 import { apiMgr } from '../../adWxDy/apiMgr';
 import { adMgr } from '../../adWxDy/adMgr';
-import { maobiMgr } from '../../managers/maobiMgr';
 const { ccclass, property } = _decorator;
 let log = 'gameScene'
 @ccclass('gameScene')
@@ -108,6 +107,8 @@ export class gameScene extends Component {
     init() {
         profiler.hideStats();
         gameData.zanting = false
+        // 每关开局清零本关连击奖励金币（关内只累计，结算时统一入账）
+        gameData.benguanComboJinbi = 0
         musicMgr.ins.playMusic('游戏内音乐')
         gameData.game = this.node
         // 获取当前节点的 UITransform 组件
@@ -772,9 +773,10 @@ export class gameScene extends Component {
         }, gameConfig.comboWindowTime * 1000)
         // 2 连及以上才有连击表现与奖励
         if (this.comboCount < 2) return
-        // 额外奖励金币（金币道具 id 为 0），静默累加，结算 / 主界面体现
+        // 额外奖励金币（金币道具 id 为 0）：关内只累计到本关连击奖励，不立即入账，
+        // 结算页与基础金币分两行展示并统一入账
         const bonus: number = (this.comboCount - 1) * gameConfig.comboJinbi
-        maobiMgr.updateMaobi(bonus)
+        gameData.benguanComboJinbi += bonus
         // juice：金币奖励飘字，屏幕上方（连击 HUD 下方）弹出 "+N"
         if (bonus > 0) {
             const coinWorld: Vec3 = this.uiTrans.convertToWorldSpaceAR(v3(0, 250, 0))
