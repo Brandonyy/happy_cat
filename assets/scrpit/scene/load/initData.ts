@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, sys, PhysicsSystem2D } from 'cc';
+import { _decorator, Component, Node, sys } from 'cc';
 import { shezhiMgr } from '../../managers/shezhiMgr';
 import { wupinMgr } from '../../managers/wupinMgr';
 import { gameData } from '../../configs/gameData';
@@ -17,10 +17,6 @@ export class initData extends Component {
     protected start(): void {
         // 判断当前平台
         gameData.pingtai = sys.platform;
-        // 下调 2D 物理迭代次数到 Box2D 官方推荐值(velocity 8 / position 3)，
-        // 默认 10/10 在大关卡(第3关起约90个动态球同时下落碰撞)时开销偏高，下调后明显省 CPU、几乎无视觉差异
-        PhysicsSystem2D.instance.velocityIterations = 8
-        PhysicsSystem2D.instance.positionIterations = 3
         shezhiMgr.init()
         wupinMgr.init()
         tujiMgr.init()

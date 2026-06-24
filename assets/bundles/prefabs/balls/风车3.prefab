@@ -179,7 +179,7 @@
     "fileId": "e6tTMpnPJL8JpiaMJwlSFg"
   },
   {
-    "__type__": "cc.CircleCollider2D",
+    "__type__": "cc.PolygonCollider2D",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -198,11 +198,107 @@
     "_restitution": 0,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 0.0,
-      "y": 3.5
+      "x": 0,
+      "y": 0
     },
-    "_id": "",
-    "_radius": 85.25
+    "_points": [
+      {
+        "__type__": "cc.Vec2",
+        "x": -8,
+        "y": 99
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -30,
+        "y": 88
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -30,
+        "y": 60
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -60,
+        "y": 65
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -75,
+        "y": 40
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -72,
+        "y": 18
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -51,
+        "y": 9
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -64,
+        "y": -18
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -42,
+        "y": -42
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -41,
+        "y": -92
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 42,
+        "y": -92
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 43,
+        "y": -40
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 55,
+        "y": -26
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 46,
+        "y": 1
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 65,
+        "y": 4
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 75,
+        "y": 24
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 65,
+        "y": 57
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 28,
+        "y": 57
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 25,
+        "y": 93
+      }
+    ],
+    "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",

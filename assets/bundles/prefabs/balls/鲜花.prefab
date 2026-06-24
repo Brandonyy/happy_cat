@@ -179,7 +179,7 @@
     "fileId": "e6tTMpnPJL8JpiaMJwlSFg"
   },
   {
-    "__type__": "cc.CircleCollider2D",
+    "__type__": "cc.PolygonCollider2D",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -198,11 +198,62 @@
     "_restitution": 0,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
+      "x": 0,
+      "y": 0
     },
-    "_id": "",
-    "_radius": 84.25
+    "_points": [
+      {
+        "__type__": "cc.Vec2",
+        "x": -7,
+        "y": 104.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -50,
+        "y": 85.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -64,
+        "y": 62.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -62,
+        "y": -46.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -50,
+        "y": -81.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -25,
+        "y": -103.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 33,
+        "y": -101.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 65,
+        "y": -43.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 62,
+        "y": 69.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 23,
+        "y": 100.5
+      }
+    ],
+    "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
