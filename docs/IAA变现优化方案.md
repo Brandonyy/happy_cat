@@ -1,4 +1,4 @@
-# 开心抓猫猫 — IAA 变现运营优化方案
+# 超级抓喵喵 — IAA 变现运营优化方案
 
 > IAA（In-App Advertising，纯广告变现）模式运营的优化清单。
 > 基于现有代码盘点：`assets/scrpit/adWxDy/`（adMgr / adConfig / wxAd / dyAd / apiMgr）。

@@ -22,7 +22,7 @@ export class dyAd extends Component {
   */
     fenXiang() {
         tt.shareAppMessage({
-            title: "开心抓猫猫",
+            title: "超级抓喵喵",
             desc: "眼力手速双重挑战，通关全靠反应快！",
             imageUrl: "",
             query: "",
@@ -80,7 +80,7 @@ export class dyAd extends Component {
             multitonRewardMsg: ['更多奖励1', '更多奖励2', '更多奖励3'],
             // 额外观看广告的次数
             multitonRewardTimes: 3,
-            // 是否开启进度提醒，开启时广告文案为【再看N个获得xx】
+            // 是否开启进度提醒，开启时广告文案为“再看若干个获得对应奖励”
             progressTip: false,
         });
         //拉取异常处理
@@ -106,7 +106,7 @@ export class dyAd extends Component {
             // 用户点击了【关闭广告】按钮
             this.videoAd.onClose((res) => {
                 if (!this.videoAd) return;
-                //需要清除回调，否则第N次广告会一次性给N个奖励
+                // 需要清除回调，否则多次观看广告后会一次性发放多份奖励
                 this.videoAd.offClose();
                 //关闭
                 if (res && res.isEnded || res === undefined) {
