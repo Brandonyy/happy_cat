@@ -8,8 +8,6 @@ import { musicMgr } from '../../managers/musicMgr';
 import { poolMgr } from '../../managers/poolMgr';
 import { homeItemKuaiTs } from './homeItemKuaiTs';
 const { ccclass, property } = _decorator;
-//源码网站 开vpn全局模式打开 https://web3incubators.com/
-//客服联系方式 https://web3incubators.com/kefu.html
 
 
 @ccclass('homeItemTs')

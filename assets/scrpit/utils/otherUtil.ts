@@ -5,8 +5,6 @@ const { ccclass, property } = _decorator;
      * @param millisecond 毫秒
      * @returns 
      */
-	 //源码网站 开vpn全局模式打开 https://web3incubators.com/
-//客服联系方式 https://web3incubators.com/kefu.html
 
 
 export function timeHMS(m: number): string {

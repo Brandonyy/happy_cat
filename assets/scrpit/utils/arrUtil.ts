@@ -1,7 +1,5 @@
 import { _decorator, Component, math, Node } from 'cc';
 const { ccclass, property } = _decorator;
-//源码网站 开vpn全局模式打开 https://web3incubators.com/
-//客服联系方式 https://web3incubators.com/kefu.html
 
 
 

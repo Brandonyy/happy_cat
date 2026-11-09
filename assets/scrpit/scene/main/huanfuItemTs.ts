@@ -5,8 +5,6 @@ import { tishiMgr } from '../../managers/tishiMgr';
 import { gameData } from '../../configs/gameData';
 import { adMgr } from '../../adWxDy/adMgr';
 const { ccclass, property } = _decorator;
-//源码网站 开vpn全局模式打开 https://web3incubators.com/
-//客服联系方式 https://web3incubators.com/kefu.html
 
 
 @ccclass('huanfuItemTs')
