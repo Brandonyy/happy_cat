@@ -50,6 +50,7 @@ import { tujiMgr } from '../../managers/tujiMgr';
 import { PREVIEW } from 'cc/env';
 import { apiMgr } from '../../adWxDy/apiMgr';
 import { adMgr } from '../../adWxDy/adMgr';
+import { performanceHudTs } from './performanceHudTs';
 interface MatchingBallOrigin {
     id: number;
     angle: number;
@@ -111,6 +112,9 @@ export class gameScene extends Component {
     private testKeyDownHandler: ((e: any) => void) | null = null;
 
     start() {
+        // 临时真机诊断卡片：使用游戏 UI 图层，黄色 V2 标题也用于确认手机运行了新包。
+        const performanceHud = this.getComponent(performanceHudTs) ?? this.addComponent(performanceHudTs);
+        performanceHud.setBallRoot(this.ballMain);
         this.init();
         this.initLevelConfig();
         this.initBallData(gameConfig.ballFenzu, gameConfig.catFenzu, gameConfig.peiduiFenzu);
@@ -141,8 +145,8 @@ export class gameScene extends Component {
     }
 
     init() {
-        // [临时] 显示真机性能面板，排查第3关真机卡顿瓶颈（Logic/Physics/Render/DrawCall/FPS）
-        profiler.showStats();
+        // 临时诊断改用普通 UI 卡片，关闭内置面板，避免重复采样和绘制。
+        profiler.hideStats();
         // [优化] 降低 2D 物理求解迭代次数，缓解多球堆叠时真机 CPU 压力
         // 默认 10/10 在多球堆叠场景下消耗过大；小游戏端只需近似堆叠，4/2 更稳。
         PhysicsSystem2D.instance.velocityIterations = 4;
