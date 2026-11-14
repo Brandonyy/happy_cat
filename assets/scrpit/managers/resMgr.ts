@@ -1,115 +1,104 @@
-import { _decorator, assetManager, AssetManager, AudioClip, Component, Node, Prefab, SpriteFrame } from 'cc';
+import {
+    _decorator,
+    assetManager,
+    AssetManager,
+    AudioClip,
+    Component,
+    Node,
+    Prefab,
+    SpriteFrame
+} from 'cc';
 import { poolMgr } from './poolMgr';
 const { ccclass, property } = _decorator;
-type Bundle = AssetManager.Bundle
-// 该脚本中Log的名称
-let log = 'resMgr'
+type Bundle = AssetManager.Bundle;
+let log = 'resMgr';
 @ccclass('resMgr')
 export class resMgr extends Component {
-    // 储存音乐
+    // 同名音乐和图片只缓存首次加载的资源。
     allAudio: { [key: string]: AudioClip } = {};
-    // 储存SpriteFrame
     allImg: { [key: string]: SpriteFrame } = {};
-    /**
-     * 单例
-     */
+    /** 单例 */
     private static _ins: resMgr = null;
+
     public static get ins() {
         if (!this._ins) {
             this._ins = new resMgr();
         }
         return this._ins;
     }
-    /**
-     * 加载资源包
-     * @param Bundle - 资源包的名称
-     * @param callBack - 资源包加载完成后的回调函数，默认为 null
-     * @returns 当资源包加载完成时解析的 Promise
-     */
-    public async loadBundle(Bundle: string,) {
+
+    /** 加载资源包 */
+    public async loadBundle(bundleName: string) {
         return new Promise<Bundle>((resolve, reject) => {
-            // 加载资源包，并在加载完成后调用回调函数
-            assetManager.loadBundle(Bundle, (err: Error, bundle: Bundle) => {
+            assetManager.loadBundle(bundleName, (err: Error, bundle: Bundle) => {
                 if (err) {
-                    console.log(log, `资源包${Bundle}加载失败：报错：${err}`);
-                    // 如果加载过程中发生错误，记录错误并拒绝 Promise
-                    reject(err)
+                    console.log(log, `资源包${bundleName}加载失败：报错：${err}`);
+                    reject(err);
                 } else {
-                    console.log(log, `资源包${Bundle}加载完成......`, bundle);
-                    resolve(bundle)
+                    console.log(log, `资源包${bundleName}加载完成......`, bundle);
+                    resolve(bundle);
                 }
-            })
-        })
+            });
+        });
     }
-    /**
-    * 从指定的资源包中加载资源
-    */
-    loadRes(Bundle: string, type) {
+
+    /** 获取或加载资源包，再加载目录并登记资源；保留原有异步和错误处理方式。 */
+    loadRes(bundleName: string, type) {
         return new Promise(async (resolve, reject) => {
-            // 构建资源的完整路径
-            console.log(log, `开始加载资源包${Bundle}下的文件`);
-            // 获取资源包
-            let bundle: Bundle = assetManager.getBundle(Bundle)
-            // 如果资源包不存在，则加载资源包
+            console.log(log, `开始加载资源包${bundleName}下的文件`);
+            let bundle: Bundle = assetManager.getBundle(bundleName);
             if (!bundle) {
-                bundle = await this.loadBundle(Bundle)
+                bundle = await this.loadBundle(bundleName);
             }
-            // deBug.log(log, `从指定的资源包${Bundle}中加载资源`, bundle)
             bundle.loadDir(type.path, type.type, (err: any, assets: any[]) => {
                 if (err) {
-                    // 如果发生错误，记录错误并解决 Promise
-                    console.log(log, `指定资源包${Bundle}中加载资源失败，报错：`, err);
-                    reject(err)
+                    console.log(log, `指定资源包${bundleName}中加载资源失败，报错：`, err);
+                    reject(err);
                 } else {
-                    let linShiAss = null;
-                    // 遍历加载的资源
-                    switch (type.type) {
-                        // 玩家及场景元素预制体
-                        case Prefab:
-                            for (let i = 0; i < assets.length; i++) {
-                                linShiAss = assets[i];
-                                const name = linShiAss.data.name as string;
-                                poolMgr.ins.setPrefab(name, linShiAss);
-                            }
-                            break;
-                        // 音乐资源
-                        case AudioClip:
-                            for (let i = 0; i < assets.length; i++) {
-                                linShiAss = assets[i];
-                                if (!this.allAudio[linShiAss.name]) {
-                                    this.allAudio[linShiAss.name] = linShiAss;
-
-                                }
-                            }
-                            break;
-                        // 图片资源
-                        case SpriteFrame:
-                            for (let i = 0; i < assets.length; i++) {
-                                linShiAss = assets[i];
-                                if (!this.allImg[linShiAss.name]) {
-                                    this.allImg[linShiAss.name] = linShiAss;
-                                }
-                            }
-                            break;
-                    }
-                    resolve(assets)
+                    this.cacheLoadedAssets(type.type, assets);
+                    resolve(assets);
                 }
-            })
-        })
+            });
+        });
     }
-    /**
-    * 获取已缓存图片资源数据
-    */
+
+    /** 获取已缓存图片资源数据 */
     public getImg(name: string) {
         return this.allImg[name];
     }
-    /**
-  * 获取音乐数据
-  */
+
+    /** 获取音乐数据 */
     public getClip(name: string) {
         return this.allAudio[name];
     }
 
+    /** 按资源类型登记预制体，或缓存首次加载的音乐、图片。 */
+    private cacheLoadedAssets(assetType, assets: any[]) {
+        let asset = null;
+        switch (assetType) {
+            case Prefab:
+                for (let i = 0; i < assets.length; i++) {
+                    asset = assets[i];
+                    const name = asset.data.name as string;
+                    poolMgr.ins.setPrefab(name, asset);
+                }
+                break;
+            case AudioClip:
+                for (let i = 0; i < assets.length; i++) {
+                    asset = assets[i];
+                    if (!this.allAudio[asset.name]) {
+                        this.allAudio[asset.name] = asset;
+                    }
+                }
+                break;
+            case SpriteFrame:
+                for (let i = 0; i < assets.length; i++) {
+                    asset = assets[i];
+                    if (!this.allImg[asset.name]) {
+                        this.allImg[asset.name] = asset;
+                    }
+                }
+                break;
+        }
+    }
 }
-
-

@@ -17,8 +17,9 @@ export class fuhuoPopTs extends Component {
     // 时间结束失败
     @property(Node)
     time: Node = null;
+
     start() {
-        this.init()
+        this.init();
     }
 
     init() {
@@ -36,39 +37,40 @@ export class fuhuoPopTs extends Component {
                 this.man.active = true;
                 break;
             default:
-                console.warn("未知失败类型:", gameData.shibaiType);
+                console.warn('未知失败类型:', gameData.shibaiType);
                 break;
         }
         // 根据游戏难度和模式设置复活加时时间
-        const time: number = this.zhuamaoLevel || gameData.moshi === gameMoshi.tiaozhan ? 2 : 1
+        const time: number = this.zhuamaoLevel || gameData.moshi === gameMoshi.tiaozhan ? 2 : 1;
         // 调度一个一次性任务，在一段时间后执行回调函数
         this.scheduleOnce(() => {
             // 更新提示标签的文本，显示复活并加时的时间
-            this.tip.string = `复活并加时${time}分钟`
-        })
+            this.tip.string = `复活并加时${time}分钟`;
+        });
     }
+
     public get zhuamaoLevel(): boolean {
-        return gameData.putongLevel > 1 && gameData.putongLevel % 5 === 0
+        return gameData.putongLevel > 1 && gameData.putongLevel % 5 === 0;
     }
+
     /**
-    * 关闭弹窗
-    */
+     * 关闭弹窗
+     */
     onGuanbi() {
         gameData.zanting = false;
-        this.node.destroy()
+        this.node.destroy();
         // 打开失败界面
-        poolMgr.ins.getPoolNode('shibaiPop', gameData.game)
+        poolMgr.ins.getPoolNode('shibaiPop', gameData.game);
     }
+
     /**
-   * 复活按钮
-   */
+     * 复活按钮
+     */
     onFuhuo() {
         adMgr.showVideo(() => {
             gameData.zanting = false;
-            this.node.destroy()
-            director.emit(eventType.fuhuo, gameData.shibaiType)
-        })
+            this.node.destroy();
+            director.emit(eventType.fuhuo, gameData.shibaiType);
+        });
     }
 }
-
-

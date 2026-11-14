@@ -14,157 +14,179 @@ const { ccclass, property } = _decorator;
 @ccclass('mainScene')
 export class mainScene extends Component {
     @property(Label)
-    level: Label
+    level: Label;
+
     protected onLoad(): void {
         // 收藏有礼
-        director.on(eventType.addToMini, this.isAddToMini, this)
+        director.on(eventType.addToMini, this.isAddToMini, this);
     }
+
     protected onDestroy(): void {
         // 注销收藏有礼监听，否则每次返回主菜单都会在全局 director 叠加监听、拖住旧 mainScene 无法回收
-        director.off(eventType.addToMini, this.isAddToMini, this)
+        director.off(eventType.addToMini, this.isAddToMini, this);
     }
+
     start() {
-        this.init()
+        this.init();
     }
+
     init() {
         profiler.hideStats();
         // 播放主界面音乐
-        musicMgr.ins.playMusic('主界面音乐')
-        gameData.main = this.node
-        gameData.tcNode = this.node.getChildByName('tcNode')
+        musicMgr.ins.playMusic('主界面音乐');
+        gameData.main = this.node;
+        gameData.tcNode = this.node.getChildByName('tcNode');
         // 按钮显示关卡
         this.level.string = `第${gameData.putongLevel}关`;
         // weixin
         // adMgr.showBanner()
-        this.isAddToMini()
-        adMgr.showChaPing()
-        apiMgr.topFenXiang()
+        this.isAddToMini();
+        adMgr.showChaPing();
+        apiMgr.topFenXiang();
         // dy
-        this.isXianshiCebian()
+        this.isXianshiCebian();
     }
+
     /**
-        * 微信游戏是否添加到我的小程序
-        */
+     * 微信游戏是否添加到我的小程序
+     */
     isAddToMini() {
         if (gameData.pingtai == pingtai.wx) {
-            const isAdd = bendiUtil.getItem('isAddToMini') || false
+            const isAdd = bendiUtil.getItem('isAddToMini') || false;
             console.log('isAdd', isAdd);
             if (isAdd) {
                 console.log(this.node.getChildByPath('topUI/shoucang'));
-                this.node.getChildByPath('topUI/shoucang').active = false
+                this.node.getChildByPath('topUI/shoucang').active = false;
             } else {
-                this.node.getChildByPath('topUI/shoucang').active = true
+                this.node.getChildByPath('topUI/shoucang').active = true;
             }
         } else {
-            this.node.getChildByPath('topUI/shoucang').active = false
+            this.node.getChildByPath('topUI/shoucang').active = false;
         }
     }
+
     /**
-    * 检测是否需要显示侧边栏按钮
-    */
+     * 检测是否需要显示侧边栏按钮
+     */
     isXianshiCebian() {
         if (gameData.pingtai == pingtai.dy) {
-            apiMgr.checkSidebar(() => {
-                this.node.getChildByPath('topUI/cebian').active = true
-            }, () => {
-                this.node.getChildByPath('topUI/cebian').active = false
-            })
+            apiMgr.checkSidebar(
+                () => {
+                    this.node.getChildByPath('topUI/cebian').active = true;
+                },
+                () => {
+                    this.node.getChildByPath('topUI/cebian').active = false;
+                }
+            );
         } else {
-            this.node.getChildByPath('topUI/cebian').active = false
+            this.node.getChildByPath('topUI/cebian').active = false;
         }
     }
+
     /**
      * 分享好友
      */
     onFenxiang() {
-        apiMgr.fenXiang()
+        apiMgr.fenXiang();
     }
+
     /**
      * 家园
      */
     onHome() {
-        poolMgr.ins.getPoolNode('homePop', gameData.tcNode)
+        poolMgr.ins.getPoolNode('homePop', gameData.tcNode);
     }
+
     /**
-    * 排名
-    */
+     * 排名
+     */
     onRank() {
-        poolMgr.ins.getPoolNode('rankPop', gameData.main)
+        poolMgr.ins.getPoolNode('rankPop', gameData.main);
     }
+
     /**
      * 抽奖
      */
     onChoujiang() {
-        poolMgr.ins.getPoolNode('choujiangView', gameData.tcNode)
+        poolMgr.ins.getPoolNode('choujiangView', gameData.tcNode);
     }
+
     /**
-    * 更换皮肤
-    */
+     * 更换皮肤
+     */
     onHuanfu() {
-        poolMgr.ins.getPoolNode('huanfuPop', gameData.main)
+        poolMgr.ins.getPoolNode('huanfuPop', gameData.main);
     }
+
     /**
-    * 每日福利
-    */
+     * 每日福利
+     */
     onDayfl() {
         if (!dayflMgr.IsLingqu) {
-            tishiMgr.titleTips(gameData.main, '您今日已领取过福利')
-            return
+            tishiMgr.titleTips(gameData.main, '您今日已领取过福利');
+            return;
         } else {
-            dayflMgr.getfl()
+            dayflMgr.getfl();
         }
     }
+
     /**
      * 游戏设置
      */
     onShezhi() {
-        poolMgr.ins.getPoolNode('shezhiPop', gameData.tcNode)
+        poolMgr.ins.getPoolNode('shezhiPop', gameData.tcNode);
     }
+
     /**
-   * 过关奖励
-   */
+     * 过关奖励
+     */
     onjiangli() {
-        poolMgr.ins.getPoolNode('guoguanJiangliPop', gameData.main)
+        poolMgr.ins.getPoolNode('guoguanJiangliPop', gameData.main);
     }
+
     /**
-    * 侧边栏按钮
-    */
+     * 侧边栏按钮
+     */
     onCebian() {
-        poolMgr.ins.getPoolNode('cebianlanPop', gameData.main)
+        poolMgr.ins.getPoolNode('cebianlanPop', gameData.main);
     }
+
     /**
-  * 收藏有礼
-  */
+     * 收藏有礼
+     */
     onShoucang() {
-        poolMgr.ins.getPoolNode('shoucangPop', gameData.main)
+        poolMgr.ins.getPoolNode('shoucangPop', gameData.main);
     }
+
     /**
-         * 打开图鉴
-         */
+     * 打开图鉴
+     */
     tujiBtn() {
-        poolMgr.ins.getPoolNode('tujiPop', gameData.main)
+        poolMgr.ins.getPoolNode('tujiPop', gameData.main);
     }
+
     /**
      * 开始游戏-挑战模式
      */
     tiaozhanBtn() {
         if (gameData.putongLevel < 10) {
-            tishiMgr.titleTips(gameData.main, '通关10关后解锁')
-            return
+            tishiMgr.titleTips(gameData.main, '通关10关后解锁');
+            return;
         }
-        musicMgr.ins.stopMusic()
-        gameData.moshi = gameMoshi.tiaozhan
-        director.loadScene('game')
+        this.startGame(gameMoshi.tiaozhan);
     }
+
     /**
-   * 开始游戏-普通模式
-   */
+     * 开始游戏-普通模式
+     */
     putongBtn() {
-        musicMgr.ins.stopMusic()
-        // 处理按钮点击事件（btnExtendTs中接收）
-        gameData.moshi = gameMoshi.putong
-        director.loadScene('game')
+        this.startGame(gameMoshi.putong);
+    }
+
+    /** 在切换场景前记录游戏模式。 */
+    private startGame(mode: gameMoshi) {
+        musicMgr.ins.stopMusic();
+        gameData.moshi = mode;
+        director.loadScene('game');
     }
 }
-
-

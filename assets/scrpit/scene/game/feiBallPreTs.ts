@@ -7,18 +7,13 @@ const { ccclass, property } = _decorator;
 export class feiBallPreTs extends Component {
     // 球的sprite组件
     @property(Sprite)
-    private sprite: Sprite = null
+    private sprite: Sprite = null;
     // 飞行元素球的信息
-    itemData: ballDto = null
-    // 设置球的属性及设置spriteFrame
+    itemData: ballDto = null;
+
     async setFeiBallSpr(val: ballDto) {
-        // 将传入的 val 赋值给 itemData
-        this.itemData = val
-        // 获取球的图片资源
-        const img = resMgr.ins.getImg(val.name)
-        // 设置球的图片资源
-        this.sprite.spriteFrame = img
+        this.itemData = val;
+        const img = resMgr.ins.getImg(val.name);
+        this.sprite.spriteFrame = img;
     }
 }
-
-

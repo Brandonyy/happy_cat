@@ -8,25 +8,25 @@ const { ccclass, property } = _decorator;
 @ccclass('shibaiPopTs')
 export class shibaiPopTs extends Component {
     onLoad() {
-        gameData.zanting = true
-        musicMgr.ins.stopMusic()
-        musicMgr.ins.playSound('a通关失败')
+        gameData.zanting = true;
+        musicMgr.ins.stopMusic();
+        musicMgr.ins.playSound('a通关失败');
         // 显示广告
-        adMgr.showChaPing()
+        adMgr.showChaPing();
     }
+
     onTuichu() {
         // 暂停结束
-        musicMgr.ins.stopMusic()
-        gameData.zanting = false
-        poolMgr.ins.huiShouNode(this.node)
-        director.loadScene('main')
+        musicMgr.ins.stopMusic();
+        gameData.zanting = false;
+        poolMgr.ins.huiShouNode(this.node);
+        director.loadScene('main');
     }
+
     onChongxin() {
         // 暂停结束
-        gameData.zanting = false
-        poolMgr.ins.huiShouNode(this.node)
-        director.loadScene('game')
+        gameData.zanting = false;
+        poolMgr.ins.huiShouNode(this.node);
+        director.loadScene('game');
     }
 }
-
-

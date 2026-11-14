@@ -5,6 +5,7 @@ const { ccclass, property } = _decorator;
 export class mergeTexiaoTs extends Component {
     @property(sp.Skeleton)
     private spine: sp.Skeleton = null!;
+
     protected onEnable(): void {
         this.spine.setCompleteListener(() => {
             // 动画播放完毕后销毁节点
@@ -12,5 +13,3 @@ export class mergeTexiaoTs extends Component {
         });
     }
 }
-
-

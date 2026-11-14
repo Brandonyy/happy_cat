@@ -7,18 +7,18 @@ const { ccclass, property } = _decorator;
 export class tujianXiangqingPopTs extends Component {
     // 图鉴图片
     @property(Sprite)
-    catImg: Sprite = null
+    catImg: Sprite = null;
     // 图鉴名称
     @property(Label)
-    catName: Label = null
+    catName: Label = null;
+
     protected onEnable(): void {
-        this.catImg.spriteFrame = resMgr.ins.getImg(gameData.tujiXiangqing.icon)
-        this.catName.string = gameData.tujiXiangqing.name
+        this.catImg.spriteFrame = resMgr.ins.getImg(gameData.tujiXiangqing.icon);
+        this.catName.string = gameData.tujiXiangqing.name;
     }
+
     // 关闭弹窗
     onGuanbi() {
-        this.node.destroy()
+        this.node.destroy();
     }
 }
-
-

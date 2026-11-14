@@ -1,28 +1,9 @@
-import { _decorator, Component, Node } from 'cc';
-const { ccclass, property } = _decorator;
-/**
-     * 时间格式化 时:分:秒
-     * @param millisecond 毫秒
-     * @returns 
-     */
-
-
-export function timeHMS(m: number): string {
-    // 将毫秒转换为秒
-    let second = m / 1000
-    // 计算小时数，并格式化为两位数字字符串
-    let hour = (Array(2).join('0') + Math.floor(second / 3600)).slice(-2)
-    // 计算分钟数，并格式化为两位数字字符串
-    let min = (Array(2).join('0') + Math.floor((second % 3600) / 60)).slice(-2)
-    // 计算秒数，并格式化为两位数字字符串
-    let sec = (Array(2).join('0') + Math.floor(second) % 60).slice(-2)
-    // 如果小时数为0，则返回 "分:秒" 格式
-    if (hour == "00") {
-        return min + ":" + sec
-    } else {
-        // 如果小时数为0，则返回 "分:秒" 格式
-        return hour + ":" + min + ":" + sec
-    }
+/** 毫秒转为时:分:秒；小时为 00 时省略小时，仍保留原来的两位截取规则。 */
+export function timeHMS(milliseconds: number): string {
+    const seconds = milliseconds / 1000;
+    const hoursText = (Array(2).join('0') + Math.floor(seconds / 3600)).slice(-2);
+    const minutesText = (Array(2).join('0') + Math.floor((seconds % 3600) / 60)).slice(-2);
+    const secondsText = (Array(2).join('0') + (Math.floor(seconds) % 60)).slice(-2);
+    if (hoursText == '00') return minutesText + ':' + secondsText;
+    return hoursText + ':' + minutesText + ':' + secondsText;
 }
-
-

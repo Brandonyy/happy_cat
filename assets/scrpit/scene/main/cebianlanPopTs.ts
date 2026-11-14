@@ -6,22 +6,20 @@ const tt = window['tt'];
 export class cebianlanPopTs extends Component {
     // 关闭按钮
     onGuanbi() {
-        poolMgr.ins.huiShouNode(this.node)
+        poolMgr.ins.huiShouNode(this.node);
     }
+
     // 点击自动跳转到侧边栏
     onCebian() {
-        poolMgr.ins.huiShouNode(this.node)
+        poolMgr.ins.huiShouNode(this.node);
         tt.navigateToScene({
             scene: 'sidebar',
             success: (res) => {
-                console.log("check scene success: ", res);
+                console.log('check scene success: ', res);
             },
             fail: (res) => {
-                console.log("check scene fail:", res);
+                console.log('check scene fail:', res);
             }
-        })
+        });
     }
-
 }
-
-

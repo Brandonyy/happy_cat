@@ -8,14 +8,16 @@ export class shuaxinPopTs extends Component {
         // 游戏暂停
         gameData.zanting = true;
     }
+
     /**
-    * 重置关卡
-    */
+     * 重置关卡
+     */
     onChongzhi() {
         this.node.destroy();
         // 重新加载关卡
-        director.loadScene("game")
+        director.loadScene('game');
     }
+
     /**
      * 继续游戏
      */
@@ -24,7 +26,4 @@ export class shuaxinPopTs extends Component {
         gameData.zanting = false;
         this.node.destroy();
     }
-
 }
-
-
