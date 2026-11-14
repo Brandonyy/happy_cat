@@ -84,7 +84,7 @@
           },
           "physics-2d": {
             "_value": true,
-            "_option": "physics-2d-box2d"
+            "_option": "physics-2d-box2d-wasm"
           },
           "physics-2d-box2d": {
             "_value": false
@@ -206,7 +206,7 @@
           "intersection-2d",
           "mask",
           "particle-2d",
-          "physics-2d-box2d",
+          "physics-2d-box2d-wasm",
           "profiler",
           "rich-text",
           "spine-3.8",

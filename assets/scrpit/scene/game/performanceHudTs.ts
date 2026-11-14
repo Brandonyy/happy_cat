@@ -6,6 +6,7 @@ import {
     Graphics,
     Label,
     Node,
+    PhysicsSystem2D,
     RigidBody2D,
     UITransform,
     Widget,
@@ -101,7 +102,7 @@ export class performanceHudTs extends Component {
         background.fill();
 
         const title = this.createLabel('Title', width, -8, 25);
-        title.string = 'PERF HUD V2';
+        title.string = 'PERF HUD V6 / BASELINE';
         title.color = new Color(255, 222, 80);
         this.metrics = this.createLabel('Metrics', width, -39, 100);
         this.metrics.string = 'FPS --   Frame -- ms   P95 -- ms\nPhysics -- ms   Render -- ms (CPU)\nBalls --   Awake --\nCollecting / 1 second';
@@ -170,7 +171,7 @@ export class performanceHudTs extends Component {
         this.metrics.string = `FPS ${fps}   Frame ${(this.frameTime / this.frames).toFixed(1)} ms   P95 ${p95.toFixed(1)} ms\n`
             + `Physics ${(this.physicsTime / this.frames).toFixed(1)} ms   Render ${(this.renderTime / this.frames).toFixed(1)} ms (CPU)\n`
             + `Balls ${bodies.length}   Awake ${awake}\n`
-            + 'Frame = CPU work / P95 = frame interval';
+            + `Engine: ${PhysicsSystem2D.PHYSICS_BOX2D_WASM ? 'Box2D WASM' : PhysicsSystem2D.PHYSICS_BOX2D ? 'Box2D JS' : 'Other'}`;
         this.frames = this.physicsTime = this.renderTime = this.frameTime = 0;
         this.intervals.length = 0;
         this.windowStart = now;

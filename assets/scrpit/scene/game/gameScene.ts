@@ -1,8 +1,6 @@
 import {
     _decorator,
-    BoxCollider2D,
     Button,
-    CircleCollider2D,
     Color,
     Component,
     director,
@@ -16,11 +14,7 @@ import {
     macro,
     math,
     Node,
-    PhysicsSystem2D,
-    PolygonCollider2D,
     profiler,
-    RigidBody2D,
-    size,
     Tween,
     tween,
     UIOpacity,
@@ -112,7 +106,7 @@ export class gameScene extends Component {
     private testKeyDownHandler: ((e: any) => void) | null = null;
 
     start() {
-        // 临时真机诊断卡片：使用游戏 UI 图层，黄色 V2 标题也用于确认手机运行了新包。
+        // 临时真机诊断卡片：使用游戏 UI 图层，黄色标题用于确认手机运行的测试包版本。
         const performanceHud = this.getComponent(performanceHudTs) ?? this.addComponent(performanceHudTs);
         performanceHud.setBallRoot(this.ballMain);
         this.init();
@@ -147,10 +141,6 @@ export class gameScene extends Component {
     init() {
         // 临时诊断改用普通 UI 卡片，关闭内置面板，避免重复采样和绘制。
         profiler.hideStats();
-        // [优化] 降低 2D 物理求解迭代次数，缓解多球堆叠时真机 CPU 压力
-        // 默认 10/10 在多球堆叠场景下消耗过大；小游戏端只需近似堆叠，4/2 更稳。
-        PhysicsSystem2D.instance.velocityIterations = 4;
-        PhysicsSystem2D.instance.positionIterations = 2;
         gameData.zanting = false;
         // 每关开局清零本关连击奖励金币（关内只累计，结算时统一入账）
         gameData.benguanComboJinbi = 0;
@@ -252,8 +242,8 @@ export class gameScene extends Component {
                     );
                 }
 
-                // 最大同屏组数按球大小收紧，避免早期大球多边形刚体一次性堆叠导致微信真机物理求解爆掉
-                gameConfig.maxZushu = this.getSafeMaxZushu(levelIndex);
+                // 恢复优化前的同屏组数规则，按球缩放比例和关卡索引设置。
+                gameConfig.maxZushu = gameConfig.ballScale <= 0.65 ? 40 : Math.min(20 + levelIndex, 40);
                 break;
             case gameMoshi.tiaozhan:
                 // 超级模式下，关卡索引为超级关卡级别减一
@@ -269,19 +259,6 @@ export class gameScene extends Component {
                 gameConfig.maxZushu = [20, 40][levelIndex];
                 break;
         }
-    }
-
-    /**
-     * 按当前球缩放限制同屏组数。
-     * 第3关原先会生成 66 个接近原尺寸的动态多边形刚体，微信小游戏端物理成本会陡增。
-     */
-    private getSafeMaxZushu(levelIndex: number): number {
-        const baseMax: number =
-            gameConfig.ballScale <= gameConfig.minBallScale ? 40 : Math.min(20 + levelIndex, 40);
-        if (gameConfig.ballScale > 0.85) return Math.min(baseMax, 14);
-        if (gameConfig.ballScale > 0.75) return Math.min(baseMax, 18);
-        if (gameConfig.ballScale > gameConfig.minBallScale) return Math.min(baseMax, 24);
-        return baseMax;
     }
 
     /**
@@ -485,56 +462,11 @@ export class gameScene extends Component {
             ball.parent = this.ballMain;
             const ballts = ball.getComponent(ballTs);
             ballts.ballData = ballData;
-            this.optimizeBallPhysics(ball);
         } else {
             console.log(log, '球的预制体为空');
         }
         // 生成过程中也实时刷新剩余球量，避免大关卡(如第2关)开局十几秒内数字一直空白
         this.jianchaShengyu();
-    }
-
-    /**
-     * 微信端物理优化：球美术仍显示原图，碰撞体换成圆/盒两种低成本形状。
-     * 原 prefab 多为 10~25 顶点 PolygonCollider2D，同屏几十个动态多边形在 Box2D 下成本很高。
-     */
-    private optimizeBallPhysics(ball: Node) {
-        const polygons: PolygonCollider2D[] = ball.getComponents(PolygonCollider2D);
-        for (let i = 0; i < polygons.length; i++) {
-            polygons[i].enabled = false;
-        }
-        const ui = ball.getComponent(UITransform);
-        const width: number = ui ? ui.contentSize.width : 160;
-        const height: number = ui ? ui.contentSize.height : 160;
-        const minSide: number = Math.min(width, height);
-        const maxSide: number = Math.max(width, height);
-        const ratio: number = maxSide / Math.max(minSide, 1);
-
-        let circle: CircleCollider2D = ball.getComponent(CircleCollider2D);
-        let box: BoxCollider2D = ball.getComponent(BoxCollider2D);
-        if (ratio > 1.25) {
-            if (circle) circle.enabled = false;
-            if (!box) box = ball.addComponent(BoxCollider2D);
-            box.size = size(Math.max(70, width * 0.82), Math.max(70, height * 0.82));
-            box.friction = 0.1;
-            box.restitution = 0;
-            box.enabled = true;
-            box.apply();
-        } else {
-            if (box) box.enabled = false;
-            if (!circle) circle = ball.addComponent(CircleCollider2D);
-            circle.radius = Math.max(45, maxSide * 0.48);
-            circle.friction = 0.1;
-            circle.restitution = 0;
-            circle.enabled = true;
-            circle.apply();
-        }
-
-        const rb = ball.getComponent(RigidBody2D);
-        if (rb) {
-            rb.fixedRotation = true;
-            rb.linearDamping = 1.0;
-            rb.angularDamping = 2.0;
-        }
     }
 
     /**
